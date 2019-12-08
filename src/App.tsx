@@ -1,26 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect } from 'react'
+import { useRepublicaActions } from './actions/useRepublicaActions'
+import { useRepublicaStore } from './store/reducers/republicas-reducer'
 
 const App: React.FC = () => {
+  const [ republicas, error, loading ] = useRepublicaStore()
+  const { fetchRepublicas } = useRepublicaActions()
+
+  useEffect(() => {
+    fetchRepublicas()
+  }, [])
+
+  if (loading.FETCH_REPUBLICAS) return <div>loading...</div>
+
+  if (error.FETCH_REPUBLICAS) return <div>{error.FETCH_REPUBLICAS}</div>
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {republicas.map(republica => <p>{republica.nome}</p>)}
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
