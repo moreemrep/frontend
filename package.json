@@ -10,17 +10,28 @@
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
+    "apollo-link": "^1.2.13",
+    "apollo-link-context": "^1.0.19",
+    "apollo-link-http": "^1.5.16",
+    "apollo-link-ws": "^1.0.19",
+    "graphql": "^14.5.8",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
+    "react-relay": "^7.1.0",
     "react-router-dom": "^5.1.2",
+    "react-runtime": "^1.1.0",
     "react-scripts": "3.3.0",
+    "relay-hooks": "^2.0.0",
     "typescript": "~3.7.2"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "schema": "node ./graphql/pull-schema.js",
+    "relay": "relay-compiler --src ./src --schema ./graphql/schema.graphql --extensions tsx",
+    "codegen": "graphql-codegen --config codegen.yml"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -38,6 +49,12 @@
     ]
   },
   "devDependencies": {
-    "@types/react-router-dom": "^5.1.3"
+    "@graphql-codegen/cli": "^1.9.1",
+    "@graphql-codegen/typescript": "^1.9.1",
+    "@types/react-relay": "^7.0.3",
+    "@types/react-router-dom": "^5.1.3",
+    "@types/relay-runtime": "^6.0.11",
+    "babel-plugin-relay": "^7.1.0",
+    "request": "^2.88.0"
   }
 }

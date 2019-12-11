@@ -1,7 +1,20 @@
-import { useAuthDispatch } from "../store/reducers/auth-reducer";
+import { useAuthDispatch } from "../store/reducers/auth-reducer"
+import { graphql } from 'babel-plugin-relay/macro'
+import { useMutation } from "relay-hooks"
+import { CriarRepublicaInput } from "../generated/graphql"
+
+const MUTATION_REGISTER = graphql`
+  mutation useAuthActionsRegisterMutation ($input: CriarRepublicaInput!) {
+    criarRepublica(input: $input) {
+      success
+      error
+    }
+  }
+`
 
 export function useAuthActions () {
   const { login, register, forgotPassword } = useAuthDispatch()
+  const [registerMutation] = useMutation(MUTATION_REGISTER)
 
   return {
     login: async ({ email, password }: any) => {
@@ -17,15 +30,16 @@ export function useAuthActions () {
       }
     },
 
-    register: async ({ email, password, republica }: any) => {
+    register: async (input: CriarRepublicaInput) => {
       try {
         register.request()
 
-        setTimeout(()=>{
-          register.success({ email: 'a@a.com', republica: 'batcaverna' })
-        }, 2000)
+        const res = await registerMutation({variables: { input } })
+        console.log({res})
+        register.success({ email: 'a@a.com', republica: 'batcaverna' })
 
       } catch (err) {
+        console.log({err})
         register.failure(err.message)
       }
     },

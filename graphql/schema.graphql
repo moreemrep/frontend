@@ -1,0 +1,49 @@
+
+interface Node { 
+    id: ID!
+}
+type Republica implements Node { 
+    id: ID!
+    nome: String
+    tipo: Tipo
+    distancia: Int
+}
+type PageInfo { 
+    hasNextPage: Boolean!
+    hasPreviousPage: Boolean!
+    startCursor: String
+    endCursor: String
+}
+type ResponsePayload { 
+    success: Boolean!
+    error: String
+}
+type Query { 
+    node(id: ID!): Node
+}
+type Mutation { 
+    criarRepublica(input: CriarRepublicaInput!): ResponsePayload!
+    editarRepublica(input: EditarRepublicaInput!): ResponsePayload!
+}
+input CriarRepublicaInput { 
+    nome: String!
+    endereco: String!
+    localizacao: [Float!]!
+    tipo: Tipo!
+    descricao: String!
+    disponivel: Boolean!
+}
+input EditarRepublicaInput { 
+    nome: String
+    endereco: String
+    localizacao: [Float!]!
+    tipo: Tipo
+    descricao: String
+    disponivel: Boolean
+}
+enum Tipo { 
+    FEMININA
+    MASCULINA
+    MISTA
+}
+scalar Datetime  
