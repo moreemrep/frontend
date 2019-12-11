@@ -11,6 +11,7 @@ export const Login: React.FC = () => {
   return (
     <div>
       {error.LOGIN}
+      {error.FORGOT_PASSWORD}
       <button onClick={()=>login({email: 'asd', password: 'dd'})}>
        Login
       </button>
