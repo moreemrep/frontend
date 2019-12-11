@@ -2,6 +2,16 @@
 interface Node { 
     id: ID!
 }
+type RepublicaPayload { 
+    distancia: Int!
+    nome: String!
+    descricao: String
+}
+type ProcurarRepublicaPayload { 
+    republicas: [RepublicaPayload!]!
+    success: Boolean!
+    error: String
+}
 type Republica implements Node { 
     id: ID!
     nome: String
@@ -24,6 +34,7 @@ type Query {
 type Mutation { 
     criarRepublica(input: CriarRepublicaInput!): ResponsePayload!
     editarRepublica(input: EditarRepublicaInput!): ResponsePayload!
+    procurarRepublica(input: ProcurarRepublicaInput!): ProcurarRepublicaPayload!
 }
 input CriarRepublicaInput { 
     nome: String!
@@ -40,6 +51,10 @@ input EditarRepublicaInput {
     tipo: Tipo
     descricao: String
     disponivel: Boolean
+}
+input ProcurarRepublicaInput { 
+    localizacao: [Float!]!
+    tipo: Tipo!
 }
 enum Tipo { 
     FEMININA
