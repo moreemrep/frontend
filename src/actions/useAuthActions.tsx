@@ -35,7 +35,7 @@ export function useAuthActions () {
         resetPassword.request()
 
         setTimeout(()=>{
-          resetPassword.success(null)
+          resetPassword.success()
         }, 2000)
 
       } catch (err) {

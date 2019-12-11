@@ -29,7 +29,7 @@ export function authReducer (state: AuthState, action: Action) {
 export function useAuthDispatch () {
   const login = useDispatch<AuthState>(types.LOGIN)
   const register = useDispatch<AuthState>(types.REGISTER)
-  const resetPassword = useDispatch(types.RESTORE_PASSWORD)
+  const resetPassword = useDispatch<void>(types.RESTORE_PASSWORD)
 
   return {
     login,
