@@ -6,13 +6,13 @@ import { initialState as republicas } from './reducers/republicas-reducer'
 import { RepublicaPayload } from '../generated/graphql';
 
 export interface BaseState {
-  loading: any
-  error: any
+  loading: any;
+  error: any;
 }
 
 export interface State extends BaseState {
-  republicas: Array<RepublicaPayload>
-  auth: AuthState
+  republicas: Array<RepublicaPayload>;
+  auth: AuthState;
 }
 
 export const initialState: State = {

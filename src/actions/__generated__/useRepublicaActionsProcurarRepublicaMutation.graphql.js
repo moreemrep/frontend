@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 3529428e2f2c4745c875cb1a1f53524c
+ * @relayHash efffd577d7d5bb8de48acf8de3739210
  */
 
 /* eslint-disable */
@@ -24,7 +24,7 @@ export type useRepublicaActionsProcurarRepublicaMutationResponse = {|
     +republicas: $ReadOnlyArray<{|
       +nome: string,
       +distancia: number,
-      +descricao: string,
+      +descricao: ?string,
     |}>,
   |}
 |};
