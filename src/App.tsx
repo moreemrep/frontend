@@ -4,7 +4,7 @@ import { useRepublicaActions } from './actions/useRepublicaActions'
 import { useRepublicaStore } from './store/reducers/republicas-reducer'
 
 const App: React.FC = () => {
-  const [ republicas, error, loading ] = useRepublicaStore()
+  const [republicas, error, loading] = useRepublicaStore()
   const { fetchRepublicas } = useRepublicaActions()
 
   useEffect(() => {
@@ -17,7 +17,7 @@ const App: React.FC = () => {
 
   return (
     <div>
-      {republicas.map(republica => <p>{republica.nome}</p>)}
+      {republicas.map(republica => <p key={republica.nome}>{republica.nome}</p>)}
     </div>
   )
 }
