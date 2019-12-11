@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash d7cf40c06211fdf84f8154e1bbd6cf25
+ * @relayHash 7c949fbfadb921394f4f6dfc80ba504f
  */
 
 /* eslint-disable */
@@ -22,7 +22,7 @@ export type useAuthActionsRegisterMutationVariables = {|
   input: CriarRepublicaInput
 |};
 export type useAuthActionsRegisterMutationResponse = {|
-  +criarRepublica: {|
+  +payload: {|
     +success: boolean,
     +error: ?string,
   |}
@@ -38,7 +38,7 @@ export type useAuthActionsRegisterMutation = {|
 mutation useAuthActionsRegisterMutation(
   $input: CriarRepublicaInput!
 ) {
-  criarRepublica(input: $input) {
+  payload: criarRepublica(input: $input) {
     success
     error
   }
@@ -57,7 +57,7 @@ var v0 = [
 v1 = [
   {
     "kind": "LinkedField",
-    "alias": null,
+    "alias": "payload",
     "name": "criarRepublica",
     "storageKey": null,
     "args": [
@@ -107,11 +107,11 @@ return {
     "operationKind": "mutation",
     "name": "useAuthActionsRegisterMutation",
     "id": null,
-    "text": "mutation useAuthActionsRegisterMutation(\n  $input: CriarRepublicaInput!\n) {\n  criarRepublica(input: $input) {\n    success\n    error\n  }\n}\n",
+    "text": "mutation useAuthActionsRegisterMutation(\n  $input: CriarRepublicaInput!\n) {\n  payload: criarRepublica(input: $input) {\n    success\n    error\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'a89354820c497faf0783614ad5fecdb2';
+(node/*: any*/).hash = '4961044a086f096c85a67013d2cab739';
 module.exports = node;
