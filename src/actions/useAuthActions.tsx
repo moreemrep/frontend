@@ -1,7 +1,7 @@
 import { useAuthDispatch } from "../store/reducers/auth-reducer";
 
 export function useAuthActions () {
-  const { login, register, resetPassword } = useAuthDispatch()
+  const { login, register, forgotPassword } = useAuthDispatch()
 
   return {
     login: async ({ email, password }: any) => {
@@ -30,16 +30,16 @@ export function useAuthActions () {
       }
     },
 
-    resetPassword: async ({ email }: any) => {
+    forgotPassword: async ({ email }: any) => {
       try {
-        resetPassword.request()
+        forgotPassword.request()
 
         setTimeout(()=>{
-          resetPassword.success()
+          forgotPassword.success()
         }, 2000)
 
       } catch (err) {
-        resetPassword.failure(err.message)
+        forgotPassword.failure(err.message)
       }
     }
   }

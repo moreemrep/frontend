@@ -1,13 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import App from './App'
+import { Router } from './router/router';
 import * as serviceWorker from './serviceWorker'
 import { StoreProvider } from './store/StoreProvider'
 import { store } from './store/store'
 
 ReactDOM.render(
   <StoreProvider store={store}>
-    <App />
+    <Router />
   </StoreProvider>, 
   document.getElementById('root')
 )

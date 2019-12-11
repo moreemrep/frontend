@@ -1,9 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react'
-import { useRepublicaActions } from './actions/useRepublicaActions'
-import { useRepublicaStore } from './store/reducers/republicas-reducer'
+import { useRepublicaActions } from '../actions/useRepublicaActions'
+import { useRepublicaStore } from '../store/reducers/republicas-reducer'
 
-const App: React.FC = () => {
+export const ProcurarRepublica: React.FC = () => {
   const [republicas, error, loading] = useRepublicaStore()
   const { fetchRepublicas } = useRepublicaActions()
 
@@ -21,5 +21,3 @@ const App: React.FC = () => {
     </div>
   )
 }
-
-export default App

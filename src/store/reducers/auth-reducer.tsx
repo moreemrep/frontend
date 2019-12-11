@@ -12,7 +12,7 @@ export const initialState: AuthState = {}
 const types = {
   LOGIN: 'LOGIN',
   REGISTER: 'REGISTER',
-  RESTORE_PASSWORD: 'RESTORE_PASSWORD'
+  FORGOT_PASSWORD: 'FORGOT_PASSWORD'
 }
 
 export function authReducer (state: AuthState, action: Action) {
@@ -29,12 +29,12 @@ export function authReducer (state: AuthState, action: Action) {
 export function useAuthDispatch () {
   const login = useDispatch<AuthState>(types.LOGIN)
   const register = useDispatch<AuthState>(types.REGISTER)
-  const resetPassword = useDispatch<void>(types.RESTORE_PASSWORD)
+  const forgotPassword = useDispatch<void>(types.FORGOT_PASSWORD)
 
   return {
     login,
     register,
-    resetPassword
+    forgotPassword
   }
 
 }
