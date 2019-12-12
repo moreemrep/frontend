@@ -65,5 +65,6 @@
     "prettier": "^1.19.1",
     "request": "^2.88.0",
     "require-text": "^0.0.1"
-  }
+  },
+  "homepage": "https://epic-hamilton-004f8f.netlify.com/"
 }

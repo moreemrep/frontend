@@ -29,7 +29,8 @@ const authLink = setContext(async (_: any, { headers }: any) =>
 )
 
 const httpLink = new HttpLink({
-  uri: 'http://localhost:3000/graphql'
+  // eslint-disable-next-line no-undef
+  uri: process.env.REACT_APP_GRAPHQL
 })
 
 // const subscriptionLink = () => new WebSocketLink({
@@ -42,12 +43,7 @@ const httpLink = new HttpLink({
 //     : 'wss://automation-batcaverna.herokuapp.com/graphql'
 // })
 
-function fetchFunction(
-  operation: { text: any },
-  variables: any,
-  cacheConfig: any,
-  uploadables: any
-): any {
+function fetchFunction(operation: { text: any }, variables: any, cacheConfig: any, uploadables: any): any {
   return execute(authLink.concat(httpLink), {
     query: parse(operation.text),
     variables
