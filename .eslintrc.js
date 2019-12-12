@@ -19,6 +19,7 @@ module.exports = {
     "prettier/prettier": ["error", { 
       singleQuote: true,
       semi: false,
+      printWidth: 120
       
     }],
     "graphql/template-strings": ["error", {
@@ -26,7 +27,10 @@ module.exports = {
       schemaString,
       tagName: "graphql"
     }],
-    "@typescript-eslint/explicit-function-return-type": "warn"
+    "@typescript-eslint/explicit-function-return-type": "warn",
+    "react-hooks/exhaustive-deps": "off",
+    "@typescript-eslint/explicit-function-return-type": "off"
+    
   },
   settings: {
     react: {
