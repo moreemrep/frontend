@@ -29,7 +29,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "schema": "node ./graphql/pull-schema.js && yarn relay",
+    "schema": "node ./graphql/pull-schema.js && yarn codegen",
     "relay": "relay-compiler --src ./src --schema ./graphql/schema.graphql --extensions tsx",
     "codegen": "graphql-codegen --config codegen.yml"
   },
