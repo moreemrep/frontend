@@ -1,7 +1,7 @@
 import { Action } from './StoreProvider'
 import { loadingReducer } from './reducers/loading-reducer'
 import { errorReducer } from './reducers/error-reducer'
-import { State } from './initialState';
+import { State } from './initialState'
 
 import { republicaReducer } from './reducers/republicas-reducer'
 import { authReducer } from './reducers/auth-reducer'

@@ -1,4 +1,4 @@
-import { Action } from "../StoreProvider"
+import { Action } from '../StoreProvider'
 
 export const initialState = {}
 

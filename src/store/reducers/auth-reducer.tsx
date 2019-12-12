@@ -1,6 +1,6 @@
-import { useDispatch } from "../hooks/useDispatch"
-import { Action } from "../StoreProvider"
-import { useStore } from "../hooks/useStore"
+import { useDispatch } from '../hooks/useDispatch'
+import { Action } from '../StoreProvider'
+import { useStore } from '../hooks/useStore'
 
 export interface AuthState {
   email?: string
@@ -15,18 +15,18 @@ const types = {
   FORGOT_PASSWORD: 'FORGOT_PASSWORD'
 }
 
-export function authReducer (state: AuthState, action: Action) {
+export function authReducer(state: AuthState, action: Action) {
   switch (action.type) {
     case 'LOGIN_SUCCESS':
     case 'REGISTER_SUCCESS':
-        return action.payload
+      return action.payload
 
     default:
       return state
   }
 }
 
-export function useAuthDispatch () {
+export function useAuthDispatch() {
   const login = useDispatch<AuthState>(types.LOGIN)
   const register = useDispatch<AuthState>(types.REGISTER)
   const forgotPassword = useDispatch<void>(types.FORGOT_PASSWORD)
@@ -36,9 +36,8 @@ export function useAuthDispatch () {
     register,
     forgotPassword
   }
-
 }
 
-export function useAuthStore(){
+export function useAuthStore() {
   return useStore('auth', types)
 }

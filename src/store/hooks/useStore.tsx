@@ -1,9 +1,11 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useMemo } from 'react'
 import { StateContext } from '../StoreProvider'
-import { State } from '../initialState';
+import { State } from '../initialState'
 
-export const useStore = <K extends keyof State>(property: K, types: any): [State[K], any, any] => {
+export const useStore = <K extends keyof State>(
+  property: K,
+  types: any
+): [State[K], any, any] => {
   const state = useContext(StateContext)
 
   const requiredState = useMemo(() => {
@@ -12,20 +14,15 @@ export const useStore = <K extends keyof State>(property: K, types: any): [State
 
   const error = useMemo(() => {
     const error: any = {}
-    Object.keys(types).forEach(type => error[type] = state.error[type])
+    Object.keys(types).forEach(type => (error[type] = state.error[type]))
     return error
-  },
-  [...Object.keys(types).map(type => state.error[type])]
-  )
+  }, [...Object.keys(types).map(type => state.error[type])])
 
   const loading = useMemo(() => {
     const loading: any = {}
-    Object.keys(types).forEach(type => loading[type] = state.loading[type])
+    Object.keys(types).forEach(type => (loading[type] = state.loading[type]))
     return loading
-  },
-    [...Object.keys(types).map(type => state.loading[type])]
-  )
+  }, [...Object.keys(types).map(type => state.loading[type])])
 
-
-  return [ requiredState, error, loading ]
+  return [requiredState, error, loading]
 }

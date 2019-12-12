@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Router } from './router/router';
+import { Router } from './router/router'
 import * as serviceWorker from './serviceWorker'
 import { StoreProvider } from './store/StoreProvider'
 import { store } from './store/store'
@@ -12,7 +12,7 @@ ReactDOM.render(
     <StoreProvider store={store}>
       <Router />
     </StoreProvider>
-  </RelayEnvironmentProvider>, 
+  </RelayEnvironmentProvider>,
   document.getElementById('root')
 )
 

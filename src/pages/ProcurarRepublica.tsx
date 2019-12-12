@@ -1,8 +1,7 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react'
 import { useRepublicaActions } from '../actions/useRepublicaActions'
 import { useRepublicaStore } from '../store/reducers/republicas-reducer'
-import { Tipo } from '../generated/graphql';
+import { Tipo } from '../generated/graphql'
 
 export const ProcurarRepublica: React.FC = () => {
   const [republicas, error, loading] = useRepublicaStore()
@@ -22,7 +21,9 @@ export const ProcurarRepublica: React.FC = () => {
 
       {republicas.map(republica => (
         <div key={republica.nome}>
-          <p>{republica.nome}({republica.distancia} metros)</p>
+          <p>
+            {republica.nome}({republica.distancia} metros)
+          </p>
           <p>{republica.descricao}</p>
         </div>
       ))}

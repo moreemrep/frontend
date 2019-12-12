@@ -1,11 +1,11 @@
-import { useAuthDispatch } from "../store/reducers/auth-reducer"
+import { useAuthDispatch } from '../store/reducers/auth-reducer'
 import { graphql } from 'babel-plugin-relay/macro'
-import { useMutation } from "relay-hooks"
-import { CriarRepublicaInput, ResponsePayload } from "../generated/graphql"
-import { Payload } from "../generated/types";
+import { useMutation } from 'relay-hooks'
+import { CriarRepublicaInput, ResponsePayload } from '../generated/graphql'
+import { Payload } from '../generated/types'
 
 const MUTATION_REGISTER = graphql`
-  mutation useAuthActionsRegisterMutation ($input: CriarRepublicaInput!) {
+  mutation useAuthActionsRegisterMutation($input: CriarRepublicaInput!) {
     payload: criarRepublica(input: $input) {
       success
       error
@@ -13,7 +13,7 @@ const MUTATION_REGISTER = graphql`
   }
 `
 
-export function useAuthActions () {
+export function useAuthActions() {
   const { login, register, forgotPassword } = useAuthDispatch()
   const [registerMutation] = useMutation(MUTATION_REGISTER)
 
@@ -22,10 +22,9 @@ export function useAuthActions () {
       try {
         login.request()
 
-        setTimeout(()=>{
+        setTimeout(() => {
           login.success({ email: 'a@a.com', republica: 'batcaverna' })
         }, 2000)
-
       } catch (err) {
         login.failure(err.message)
       }
@@ -35,15 +34,16 @@ export function useAuthActions () {
       try {
         register.request()
 
-        const { payload }: Payload<ResponsePayload> = await registerMutation({variables: { input } })
+        const { payload }: Payload<ResponsePayload> = await registerMutation({
+          variables: { input }
+        })
 
         if (payload.error) {
           register.failure(payload.error)
           return
         }
-        
-        register.success({ email: 'a@a.com', republica: 'batcaverna' })
 
+        register.success({ email: 'a@a.com', republica: 'batcaverna' })
       } catch (err) {
         register.failure(err.message)
       }
@@ -53,10 +53,9 @@ export function useAuthActions () {
       try {
         forgotPassword.request()
 
-        setTimeout(()=>{
+        setTimeout(() => {
           forgotPassword.success()
         }, 2000)
-
       } catch (err) {
         forgotPassword.failure(err.message)
       }

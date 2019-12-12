@@ -15,17 +15,17 @@ import { Environment, Network, RecordSource, Store } from 'relay-runtime'
 const authLink = setContext(async (_: any, { headers }: any) =>
   1
     ? {
-      headers: {
-        ...headers,
-        token: 'teste'
-        // token: await userFire.getIdToken(true)
+        headers: {
+          ...headers,
+          token: 'teste'
+          // token: await userFire.getIdToken(true)
+        }
       }
-    }
     : {
-      headers: {
-        ...headers
+        headers: {
+          ...headers
+        }
       }
-    }
 )
 
 const httpLink = new HttpLink({
@@ -42,7 +42,12 @@ const httpLink = new HttpLink({
 //     : 'wss://automation-batcaverna.herokuapp.com/graphql'
 // })
 
-function fetchFunction (operation: { text: any; }, variables: any, cacheConfig: any, uploadables: any): any {
+function fetchFunction(
+  operation: { text: any },
+  variables: any,
+  cacheConfig: any,
+  uploadables: any
+): any {
   return execute(authLink.concat(httpLink), {
     query: parse(operation.text),
     variables

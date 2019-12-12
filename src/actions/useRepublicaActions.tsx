@@ -1,11 +1,16 @@
 import { useRepublicaDispatch } from '../store/reducers/republicas-reducer'
 import { graphql } from 'babel-plugin-relay/macro'
-import { useMutation } from 'relay-hooks';
-import { ProcurarRepublicaInput, ProcurarRepublicaPayload } from '../generated/graphql';
-import { Payload } from '../generated/types';
+import { useMutation } from 'relay-hooks'
+import {
+  ProcurarRepublicaInput,
+  ProcurarRepublicaPayload
+} from '../generated/graphql'
+import { Payload } from '../generated/types'
 
 const MUTATION_FETCH_REPUBLICA = graphql`
-  mutation useRepublicaActionsProcurarRepublicaMutation ($input: ProcurarRepublicaInput!) {
+  mutation useRepublicaActionsProcurarRepublicaMutation(
+    $input: ProcurarRepublicaInput!
+  ) {
     payload: procurarRepublica(input: $input) {
       success
       error
@@ -18,9 +23,7 @@ const MUTATION_FETCH_REPUBLICA = graphql`
   }
 `
 
-
-
-export function useRepublicaActions () {
+export function useRepublicaActions() {
   const { fetch } = useRepublicaDispatch()
   const [fetchRepublicaMutation] = useMutation(MUTATION_FETCH_REPUBLICA)
 
@@ -29,11 +32,15 @@ export function useRepublicaActions () {
       try {
         fetch.request()
 
-        const { payload }: Payload<ProcurarRepublicaPayload> = await fetchRepublicaMutation({ variables: { input } })
+        const {
+          payload
+        }: Payload<ProcurarRepublicaPayload> = await fetchRepublicaMutation({
+          variables: { input }
+        })
 
         if (payload.error) {
           fetch.failure(payload.error)
-          return
+          return false
         }
 
         fetch.success(payload.republicas)

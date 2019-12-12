@@ -18,13 +18,11 @@ interface StoreProviderProps {
   children: any
 }
 
-export function StoreProvider ({ store, children }: StoreProviderProps) {
+export function StoreProvider({ store, children }: StoreProviderProps) {
   const [state, dispatch] = useReducer(store.reducer, store.initialState)
   return (
     <DispatchContext.Provider value={dispatch}>
-      <StateContext.Provider value={state}>
-        {children}
-      </StateContext.Provider>
+      <StateContext.Provider value={state}>{children}</StateContext.Provider>
     </DispatchContext.Provider>
   )
 }
