@@ -34,9 +34,7 @@ export function useAuthActions() {
       try {
         register.request()
 
-        const { payload }: Payload<ResponsePayload> = await registerMutation({
-          variables: { input }
-        })
+        const { payload }: Payload<ResponsePayload> = await registerMutation({ variables: { input } })
 
         if (payload.error) {
           register.failure(payload.error)

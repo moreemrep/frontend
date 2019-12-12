@@ -5,7 +5,7 @@ import { initialState as auth, AuthState } from './reducers/auth-reducer'
 import { initialState as republicas } from './reducers/republicas-reducer'
 import { RepublicaPayload } from '../generated/graphql'
 
-export interface BaseState {
+interface BaseState {
   loading: any
   error: any
 }

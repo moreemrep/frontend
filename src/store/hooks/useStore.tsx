@@ -2,10 +2,7 @@ import { useContext, useMemo } from 'react'
 import { StateContext } from '../StoreProvider'
 import { State } from '../initialState'
 
-export const useStore = <K extends keyof State>(
-  property: K,
-  types: any
-): [State[K], any, any] => {
+export const useStore = <K extends keyof State>(property: K, types: any): [State[K], any, any] => {
   const state = useContext(StateContext)
 
   const requiredState = useMemo(() => {
