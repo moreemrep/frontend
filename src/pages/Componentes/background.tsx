@@ -10,6 +10,15 @@ export function Background() {
     <Particles
       className="particulas"
       params={{
+        interactivity: {
+          detect_on: 'window',
+          events: {
+            onhover: {
+              enable: true,
+              mode: 'repulse'
+            }
+          }
+        },
         particles: {
           line_linked: {
             width: 0.9,
