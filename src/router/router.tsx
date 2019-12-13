@@ -6,6 +6,7 @@ import { ProcurarRepublica } from '../pages/ProcurarRepublica'
 import { EditarRepublica } from '../pages/EditarRepublica'
 import { CadastrarRepublica } from '../pages/CadastrarRepublica'
 import { Login } from '../pages/Login'
+import { GAListener } from './gaListener'
 
 export function Router() {
   const [user] = useAuthStore()
@@ -13,14 +14,16 @@ export function Router() {
 
   return (
     <BrowserRouter>
-      <Switch>
-        <Route path="/procurar" component={ProcurarRepublica} />
-        {logado && <Route path="/editar" component={EditarRepublica} />}
-        {!logado && <Route path="/cadastrar" component={CadastrarRepublica} />}
-        {!logado && <Route path="/login" component={Login} />}
-        <Route path="/" component={LandingPage} />
-        <Redirect to="/" exact />
-      </Switch>
+      <GAListener>
+        <Switch>
+          <Route path="/procurar" component={ProcurarRepublica} />
+          {logado && <Route path="/editar" component={EditarRepublica} />}
+          {!logado && <Route path="/cadastrar" component={CadastrarRepublica} />}
+          {!logado && <Route path="/login" component={Login} />}
+          <Route path="/" component={LandingPage} />
+          <Redirect to="/" exact />
+        </Switch>
+      </GAListener>
     </BrowserRouter>
   )
 }
