@@ -17,8 +17,11 @@ export const Login: React.FC = () => {
       </button>
 
       <button onClick={() => forgotPassword({ email: 'asd' })}>
-        Forgot password
+        Esqueceu a senha
       </button>
+      <a href= '/landingpage'>
+        Voltar Principal
+        </a>
     </div>
   )
 }

@@ -7,6 +7,7 @@ import { useMedia } from '../hooks/useMedia'
 export const ProcurarRepublica: React.FC = () => {
   const [republicas, error, loading] = useRepublicaStore()
   const { fetchRepublicas } = useRepublicaActions()
+
   const small = useMedia('(max-width: 400px)')
 
   const [filtro] = useState({ localizacao: [1, 2], tipo: Tipo.Mista })
