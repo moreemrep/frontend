@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Tipo } from 'src/generated/graphql'
 import './form.css'
+import Map from 'pigeon-maps'
 
 export function FomIput() {
   const [universidade, setUniversidade] = useState('')
@@ -29,6 +30,9 @@ export function FomIput() {
           <span className={`${tipo === Tipo.Mista && 'active'}`}>mista</span>
         </div>
       </div>
+      {universidade && tipo && (
+        <Map onClick={ev => console.log({ ev })} center={[-23.186077, -50.657391]} zoom={15} width={600} height={400} />
+      )}
     </div>
   )
 }
