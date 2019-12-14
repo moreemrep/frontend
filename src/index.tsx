@@ -9,6 +9,7 @@ import { environment } from './enviroment'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Navb } from './pages/Componentes/Navbar'
 import { Background } from './pages/Componentes/background'
+import './pages/style.css'
 
 ReactDOM.render(
   <RelayEnvironmentProvider environment={environment}>

@@ -1,5 +1,4 @@
 import React from 'react'
-import './style.css'
 import { StyleSheet, css } from 'aphrodite'
 
 const styles = StyleSheet.create({
