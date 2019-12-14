@@ -9,32 +9,3 @@ html, body {
 #root {
     height: inherit
 }
-
-.formLanding {
-    display: flex;
-    align-items: center;
-    min-height: 80%;
-    justify-content: center;
-}
-
-.particulas{
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: -1;
-    display: flex;
-    flex: 1;
-}
-
-.cx{
-    background: #FFFFFF88;
-    padding: 40px;
-    border-radius: 19px;
-}
-
-.textU{
-    color: black;
-    font-weight: bold;
-}
