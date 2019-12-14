@@ -6,9 +6,7 @@ const styles = StyleSheet.create({
   form: {
     display: 'flex',
     alignItems: 'center',
-    minHeight: '80%',
-    justifyContent: 'center',
-    flexDirection: 'column'
+    justifyContent: 'center'
   }
 })
 
