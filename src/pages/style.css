@@ -2,10 +2,12 @@ html, body {
     font-family: Arial, Helvetica, sans-serif;
     height: 100%;
     margin: 0;
+    overflow: hidden;
+    color: white;
 }
 
 #root {
-    height: 100%
+    height: inherit
 }
 
 .formLanding {

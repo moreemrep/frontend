@@ -1,14 +1,25 @@
 import React from 'react'
 import Particles from 'react-particles-js'
-import '../style.css'
 import { useMedia } from '../../hooks/useMedia'
+import { StyleSheet, css } from 'aphrodite'
+
+const styles = StyleSheet.create({
+  particulas: {
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    zIndex: -1
+  }
+})
 
 export function Background() {
   const small = useMedia('(max-width: 400px)')
 
   return (
     <Particles
-      className="particulas"
+      className={css(styles.particulas)}
       params={{
         interactivity: {
           detect_on: 'window',

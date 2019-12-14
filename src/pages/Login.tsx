@@ -2,7 +2,7 @@ import React from 'react'
 import { useAuthActions } from '../actions/useAuthActions'
 import { useAuthStore } from '../store/reducers/auth-reducer'
 
-export const Login: React.FC = () => {
+const Login: React.FC = () => {
   const { login, forgotPassword } = useAuthActions()
   const [, error, loading] = useAuthStore()
 
@@ -12,16 +12,12 @@ export const Login: React.FC = () => {
     <div>
       {error.LOGIN}
       {error.FORGOT_PASSWORD}
-      <button onClick={() => login({ email: 'asd', password: 'dd' })}>
-        Login
-      </button>
+      <button onClick={() => login({ email: 'asd', password: 'dd' })}>Login</button>
 
-      <button onClick={() => forgotPassword({ email: 'asd' })}>
-        Esqueceu a senha
-      </button>
-      <a href= '/landingpage'>
-        Voltar Principal
-        </a>
+      <button onClick={() => forgotPassword({ email: 'asd' })}>Esqueceu a senha</button>
+      <a href="/landingpage">Voltar Principal</a>
     </div>
   )
 }
+
+export default Login

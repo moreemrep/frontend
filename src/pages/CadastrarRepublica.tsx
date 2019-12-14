@@ -3,7 +3,7 @@ import { useAuthActions } from '../actions/useAuthActions'
 import { useAuthStore } from '../store/reducers/auth-reducer'
 import { Tipo } from '../generated/graphql'
 
-export const CadastrarRepublica: React.FC = () => {
+const CadastrarRepublica: React.FC = () => {
   const { register } = useAuthActions()
   const [, error, loading] = useAuthStore()
 
@@ -29,3 +29,5 @@ export const CadastrarRepublica: React.FC = () => {
     </div>
   )
 }
+
+export default CadastrarRepublica
