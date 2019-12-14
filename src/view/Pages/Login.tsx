@@ -13,9 +13,7 @@ const Login: React.FC = () => {
       {error.LOGIN}
       {error.FORGOT_PASSWORD}
       <button onClick={() => login({ email: 'asd', password: 'dd' })}>Login</button>
-
       <button onClick={() => forgotPassword({ email: 'asd' })}>Esqueceu a senha</button>
-      <a href="/landingpage">Voltar Principal</a>
     </div>
   )
 }

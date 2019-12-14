@@ -38,12 +38,14 @@ export function useAuthActions() {
 
         if (payload.error) {
           register.failure(payload.error)
-          return
+          return false
         }
 
         register.success({ email: 'a@a.com', republica: 'batcaverna' })
+        return true
       } catch (err) {
         register.failure(err.message)
+        return false
       }
     },
 
