@@ -1,5 +1,5 @@
 import React from 'react'
-import { FomIput } from './Componentes/form'
+import { FomIput } from '../Componentes/form'
 import { StyleSheet, css } from 'aphrodite'
 import Map from 'pigeon-maps'
 
@@ -16,7 +16,7 @@ const LandingPage: React.FC = () => {
   return (
     <div className={css(styles.form)}>
       <FomIput></FomIput>
-      <Map center={[50.879, 44.6997]} zoom={12} width={600} height={400} />
+      <Map onClick={ev => console.log({ ev })} center={[-23.186077, -50.657391]} zoom={15} width={600} height={400} />
     </div>
   )
 }

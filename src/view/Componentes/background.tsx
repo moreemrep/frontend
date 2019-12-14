@@ -1,7 +1,7 @@
 import React from 'react'
 import Particles from 'react-particles-js'
-import { useMedia } from '../../hooks/useMedia'
 import { StyleSheet, css } from 'aphrodite'
+import { useMedia } from 'src/hooks/useMedia'
 
 const styles = StyleSheet.create({
   particulas: {

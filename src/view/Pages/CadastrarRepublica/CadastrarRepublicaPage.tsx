@@ -1,9 +1,9 @@
 import React from 'react'
-import { useAuthActions } from '../actions/useAuthActions'
-import { useAuthStore } from '../store/reducers/auth-reducer'
-import { Tipo } from '../generated/graphql'
+import { useAuthActions } from 'src/actions/useAuthActions'
+import { useAuthStore } from 'src/store/reducers/auth-reducer'
+import { Tipo } from 'src/generated/graphql'
 
-const CadastrarRepublica: React.FC = () => {
+const CadastrarRepublicaPage: React.FC = () => {
   const { register } = useAuthActions()
   const [, error, loading] = useAuthStore()
 
@@ -30,4 +30,4 @@ const CadastrarRepublica: React.FC = () => {
   )
 }
 
-export default CadastrarRepublica
+export default CadastrarRepublicaPage

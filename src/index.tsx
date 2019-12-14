@@ -7,15 +7,15 @@ import { store } from './store/store'
 import { RelayEnvironmentProvider } from 'relay-hooks'
 import { environment } from './enviroment'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { Navb } from './pages/Componentes/Navbar'
-import { Background } from './pages/Componentes/background'
-import './pages/style.css'
+import { Navb } from './view/Componentes/Navbar'
+import { Background } from './view/Componentes/background'
+import './view/style.css'
 
 ReactDOM.render(
   <RelayEnvironmentProvider environment={environment}>
     <StoreProvider store={store}>
-      <Navb></Navb>
-      <Background></Background>
+      <Navb />
+      <Background />
       <Router />
     </StoreProvider>
   </RelayEnvironmentProvider>,

@@ -1,6 +1,6 @@
 import React from 'react'
-import { useAuthActions } from '../actions/useAuthActions'
-import { useAuthStore } from '../store/reducers/auth-reducer'
+import { useAuthActions } from 'src/actions/useAuthActions'
+import { useAuthStore } from 'src/store/reducers/auth-reducer'
 
 const Login: React.FC = () => {
   const { login, forgotPassword } = useAuthActions()

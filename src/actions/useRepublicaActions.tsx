@@ -1,8 +1,8 @@
 import { useRepublicaDispatch } from '../store/reducers/republicas-reducer'
 import { graphql } from 'babel-plugin-relay/macro'
 import { useMutation } from 'relay-hooks'
-import { ProcurarRepublicaInput, ProcurarRepublicaPayload } from '../generated/graphql'
-import { Payload } from '../generated/types'
+import { ProcurarRepublicaInput, ProcurarRepublicaPayload } from 'src/generated/graphql'
+import { Payload } from 'src/types/types'
 
 const MUTATION_FETCH_REPUBLICA = graphql`
   mutation useRepublicaActionsProcurarRepublicaMutation($input: ProcurarRepublicaInput!) {
