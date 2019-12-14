@@ -28,13 +28,8 @@ html, body {
     flex: 1;
 }
 
-.cx{
-    background: #FFFFFF88;
-    padding: 40px;
-    border-radius: 19px;
+.Navstyle{
+    margin-right: 5%;
+    height: 10%;
 }
 
-.textU{
-    color: black;
-    font-weight: bold;
-}
