@@ -1,30 +1,34 @@
-import React from 'react'
-import { Form, Col, Row } from 'react-bootstrap'
-import { StyleSheet, css } from 'aphrodite'
-
-const styles = StyleSheet.create({
-  cx: {
-    background: '#FFFFFF88',
-    padding: 40,
-    borderRadius: 19
-  },
-  textU: {
-    color: 'black',
-    fontWeight: 'bold'
-  }
-})
+import React, { useState } from 'react'
+import { Tipo } from 'src/generated/graphql'
+import './form.css'
 
 export function FomIput() {
+  const [universidade, setUniversidade] = useState('')
+  const [tipo, setTipo] = useState()
+
   return (
-    <Form className={css(styles.cx)}>
-      <Form.Group as={Row}>
-        <Form.Label className={css(styles.textU)} column sm="auto">
-          Universidade
-        </Form.Label>
-        <Col sm="6">
-          <Form.Control type="text" placeholder="Selecione" />
-        </Col>
-      </Form.Group>
-    </Form>
+    <div>
+      <div id="namer">
+        <div id="namer-input">
+          <input
+            type="text"
+            name="namername"
+            placeholder="Universidade"
+            onChange={t => setUniversidade(t.target.value)}
+          />
+        </div>
+      </div>
+      <div className={`namer-controls ${universidade && 'active'}`}>
+        <div onClick={() => setTipo(Tipo.Feminina)}>
+          <span className={`${tipo === Tipo.Feminina && 'active'}`}>feminina</span>
+        </div>
+        <div onClick={() => setTipo(Tipo.Masculina)}>
+          <span className={`${tipo === Tipo.Masculina && 'active'}`}>masculina</span>
+        </div>
+        <div onClick={() => setTipo(Tipo.Mista)}>
+          <span className={`${tipo === Tipo.Mista && 'active'}`}>mista</span>
+        </div>
+      </div>
+    </div>
   )
 }
