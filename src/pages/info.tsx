@@ -1,5 +1,5 @@
 import React from 'react'
 
-export function Info() {
+export default function Info(): JSX.Element {
   return <div>INformaçoes</div>
 }

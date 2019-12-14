@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
   }
 })
 
-export const LandingPage: React.FC = () => {
+const LandingPage: React.FC = () => {
   return (
     <div className={css(styles.form)}>
       <input type="text" name="inp1" />
@@ -20,3 +20,5 @@ export const LandingPage: React.FC = () => {
     </div>
   )
 }
+
+export default LandingPage

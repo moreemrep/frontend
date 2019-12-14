@@ -4,7 +4,7 @@ import { useRepublicaStore } from '../store/reducers/republicas-reducer'
 import { Tipo } from '../generated/graphql'
 import { useBreakpoints } from '../hooks/useBreakpoints'
 
-export const ProcurarRepublica: React.FC = () => {
+const ProcurarRepublica: React.FC = () => {
   const [republicas, error, loading] = useRepublicaStore()
   const { fetchRepublicas } = useRepublicaActions()
 
@@ -49,3 +49,5 @@ export const ProcurarRepublica: React.FC = () => {
     </div>
   )
 }
+
+export default ProcurarRepublica

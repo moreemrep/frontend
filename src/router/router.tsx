@@ -1,31 +1,36 @@
-import React from 'react'
-import { Route, Redirect, Switch, BrowserRouter } from 'react-router-dom'
+import React, { lazy, Suspense } from 'react'
+import { Route, Redirect, Switch, HashRouter } from 'react-router-dom'
 import { useAuthStore } from '../store/reducers/auth-reducer'
-import { LandingPage } from '../pages/LandingPage'
-import { ProcurarRepublica } from '../pages/ProcurarRepublica'
-import { EditarRepublica } from '../pages/EditarRepublica'
-import { CadastrarRepublica } from '../pages/CadastrarRepublica'
-import { Login } from '../pages/Login'
-import { Info } from '../pages/info'
 import { GAListener } from './gaListener'
+
+const LoadingMessage = () => <div>loading...</div>
+
+const CadastrarRepublica = lazy(() => import('../pages/CadastrarRepublica'))
+const ProcurarRepublica = lazy(() => import('../pages/ProcurarRepublica'))
+const EditarRepublica = lazy(() => import('../pages/EditarRepublica'))
+const Login = lazy(() => import('../pages/Login'))
+const Info = lazy(() => import('../pages/info'))
+const LandingPage = lazy(() => import('../pages/LandingPage'))
 
 export function Router() {
   const [user] = useAuthStore()
   const logado = !!user.email
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <GAListener>
-        <Switch>
-          <Route path="/procurar" component={ProcurarRepublica} />
-          {logado && <Route path="/editar" component={EditarRepublica} />}
-          {!logado && <Route path="/cadastrar" component={CadastrarRepublica} />}
-          {!logado && <Route path="/login" component={Login} />}
-          <Route path="/informacoes" component={Info} />
-          <Route path="/" component={LandingPage} />
-          <Redirect to="/" exact />
-        </Switch>
+        <Suspense fallback={<LoadingMessage />}>
+          <Switch>
+            <Route path="/procurar" component={ProcurarRepublica} />
+            {logado && <Route path="/editar" component={EditarRepublica} />}
+            {!logado && <Route path="/cadastrar" component={CadastrarRepublica} />}
+            {!logado && <Route path="/login" component={Login} />}
+            <Route path="/informacoes" component={Info} />
+            <Route path="/" component={LandingPage} />
+            <Redirect to="/" exact />
+          </Switch>
+        </Suspense>
       </GAListener>
-    </BrowserRouter>
+    </HashRouter>
   )
 }
