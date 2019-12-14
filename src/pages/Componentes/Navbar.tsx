@@ -1,9 +1,10 @@
 import React from 'react'
 import { Navbar, NavDropdown, Nav } from 'react-bootstrap'
+import '../style.css'
 
 export function Navb() {
   return (
-    <Navbar collapseOnSelect expand="lg" bg="transparent" variant="dark">
+    <Navbar className="Navstyle" collapseOnSelect expand="lg" bg="transparent" variant="dark">
       <Navbar.Brand href="/#/">#moreemrep</Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
