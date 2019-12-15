@@ -18,7 +18,7 @@ export function FomIput() {
   const [centro, setCentro] = useState([0, 0]);
 
   // useEffect(() => {}, [universidade])
-  console.log({ republicas });
+
   useEffect(() => {
     fetchRepublicas({
       distancia: 2000,
