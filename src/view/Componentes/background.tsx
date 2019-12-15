@@ -1,21 +1,22 @@
-import React from 'react'
-import Particles from 'react-particles-js'
-import { StyleSheet, css } from 'aphrodite'
-import { useMedia } from 'src/hooks/useMedia'
+import React from 'react';
+import Particles from 'react-particles-js';
+import { StyleSheet, css } from 'aphrodite';
+import { useMedia } from 'src/hooks/useMedia';
 
 const styles = StyleSheet.create({
   particulas: {
-    position: 'absolute',
+    position: 'fixed',
     top: 0,
     bottom: 0,
     left: 0,
     right: 0,
-    zIndex: -1
+    zIndex: -1,
+    overflow: 'hidden'
   }
-})
+});
 
 export function Background() {
-  const small = useMedia('(max-width: 400px)')
+  const small = useMedia('(max-width: 400px)');
 
   return (
     <Particles
@@ -60,5 +61,5 @@ export function Background() {
         backgroundColor: '#000'
       }}
     />
-  )
+  );
 }

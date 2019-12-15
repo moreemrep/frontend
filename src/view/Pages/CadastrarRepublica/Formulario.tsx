@@ -3,14 +3,12 @@ import { useAuthActions } from 'src/actions/useAuthActions';
 import { useAuthStore } from 'src/store/reducers/auth-reducer';
 import { Tipo } from 'src/generated/graphql';
 import { Formik } from 'formik';
-import { Input } from 'src/view/Componentes/input';
 import { object, string } from 'yup';
 import Map, { MapClickEvent } from 'pigeon-maps';
 import Marker from 'pigeon-marker';
-import { useDimensions } from 'src/hooks/useDimensions';
-import { useLocation } from 'react-router';
 import { usePosition } from 'src/hooks/usePosition';
 import { Form, Col, Button } from 'react-bootstrap';
+import { useHistory } from 'react-router';
 
 export const CadastrarRepublicaForm = () => {
   const [geolocation, setGeolocation] = useState(false);
@@ -27,6 +25,7 @@ export const CadastrarRepublicaForm = () => {
 export const Formulario = ({ toggleGeolocation, location }: any) => {
   const { register } = useAuthActions();
   const [, error, loading] = useAuthStore();
+  const { push } = useHistory();
 
   return (
     <Formik
@@ -44,7 +43,6 @@ export const Formulario = ({ toggleGeolocation, location }: any) => {
         nome: string().required('obrigatório')
       })}
       onSubmit={async (values, helpers) => {
-        const { resetForm } = helpers;
         if (
           await register({
             descricao: values.descricao,
@@ -56,7 +54,7 @@ export const Formulario = ({ toggleGeolocation, location }: any) => {
             tipo: values.tipo
           })
         ) {
-          resetForm();
+          push('home');
         }
       }}
       render={helpers => {
@@ -68,7 +66,6 @@ export const Formulario = ({ toggleGeolocation, location }: any) => {
           setFieldValue('latitude', ev.latLng[0]);
           setFieldValue('longitude', ev.latLng[1]);
         }
-        console.log({ values });
         const center =
           values.longitude !== 0 && values.latitude !== 0
             ? [values.latitude, values.longitude]
@@ -76,7 +73,7 @@ export const Formulario = ({ toggleGeolocation, location }: any) => {
         return (
           <div>
             {error.REGISTER}
-            <Form className="FormStyle">
+            <Form className="FormStyle" onSubmit={helpers.handleSubmit}>
               <Form.Row>
                 <Form.Group as={Col} controlId="formGridEmail">
                   <Form.Label>Email</Form.Label>
@@ -156,18 +153,16 @@ export const Formulario = ({ toggleGeolocation, location }: any) => {
                     <Form.Control type="Text" placeholder="Longitude" />
                   </Form.Group>
                 </Form.Row>
-                <Button variant="primary" href="https://justgetflux.com/map.html">
+                <a href="https://justgetflux.com/map.html" target="blank">
                   Descobrir coordenadas da Rep
-                </Button>
+                </a>
               </Form>
             )}
             <button onClick={toggleGeolocation}>{location ? 'desligar' : 'ligar'}</button>
             <Map onClick={onMapClick} center={center} zoom={15} width={300} height={400}>
               <Marker anchor={center} />
             </Map>
-            <button onClick={() => helpers.handleSubmit()} type="submit">
-              Submit
-            </button>
+            <button type="submit">Submit</button>
           </div>
         );
       }}

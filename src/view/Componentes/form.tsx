@@ -58,10 +58,15 @@ export function FomIput() {
       </div>
       {universidade && tipo && (
         <Map center={[centro[1], centro[0]]} zoom={14} width={small ? width : 500} height={400}>
+          <Marker anchor={[centro[1], centro[0]]} />
           {republicas.map(
             republica =>
               republica.localizacao && (
-                <Marker key={republica.nome} anchor={[republica.localizacao[1], republica.localizacao[0]]} />
+                <Marker
+                  onClick={() => console.log(republica)}
+                  key={republica.nome}
+                  anchor={[republica.localizacao[1], republica.localizacao[0]]}
+                />
               )
           )}
         </Map>
