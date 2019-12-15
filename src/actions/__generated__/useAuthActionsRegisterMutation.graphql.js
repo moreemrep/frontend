@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 7c949fbfadb921394f4f6dfc80ba504f
+ * @relayHash b8c4b8d083ee2a9e5824974772c0300c
  */
 
 /* eslint-disable */
@@ -17,6 +17,7 @@ export type CriarRepublicaInput = {|
   tipo: Tipo,
   descricao: string,
   disponivel: boolean,
+  mostrarNoMapa: boolean,
 |};
 export type useAuthActionsRegisterMutationVariables = {|
   input: CriarRepublicaInput

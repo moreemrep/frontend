@@ -3,12 +3,19 @@ interface Node {
     id: ID!
 }
 type RepublicaPayload { 
-    distancia: Int!
+    distancia: Float!
     nome: String!
     descricao: String
+    localizacao: [Float!]
 }
 type ProcurarRepublicaPayload { 
     republicas: [RepublicaPayload!]!
+    centro: [Float!]!
+    success: Boolean!
+    error: String
+}
+type ProcurarUniversidadePayload { 
+    universidades: [Universidade!]!
     success: Boolean!
     error: String
 }
@@ -17,6 +24,12 @@ type Republica implements Node {
     nome: String
     tipo: Tipo
     distancia: Int
+}
+type Universidade implements Node { 
+    id: ID!
+    nome: String
+    sigla: String
+    localizacao: [Float]
 }
 type PageInfo { 
     hasNextPage: Boolean!
@@ -32,9 +45,16 @@ type Query {
     node(id: ID!): Node
 }
 type Mutation { 
+    criarUniversidade(input: CriarUniversidadeInput!): ResponsePayload!
     criarRepublica(input: CriarRepublicaInput!): ResponsePayload!
     editarRepublica(input: EditarRepublicaInput!): ResponsePayload!
     procurarRepublica(input: ProcurarRepublicaInput!): ProcurarRepublicaPayload!
+    procurarUniversidade(input: ProcurarUniversidadeInput!): ProcurarUniversidadePayload!
+}
+input CriarUniversidadeInput { 
+    nome: String!
+    sigla: String!
+    localizacao: [Float!]!
 }
 input CriarRepublicaInput { 
     nome: String!
@@ -43,6 +63,7 @@ input CriarRepublicaInput {
     tipo: Tipo!
     descricao: String!
     disponivel: Boolean!
+    mostrarNoMapa: Boolean!
 }
 input EditarRepublicaInput { 
     nome: String
@@ -53,8 +74,13 @@ input EditarRepublicaInput {
     disponivel: Boolean
 }
 input ProcurarRepublicaInput { 
-    localizacao: [Float!]!
+    universidade: ID!
     tipo: Tipo!
+    distancia: Int!
+}
+input ProcurarUniversidadeInput { 
+    nome: String
+    sigla: String
 }
 enum Tipo { 
     FEMININA

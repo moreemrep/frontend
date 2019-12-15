@@ -1,18 +1,34 @@
-import React, { useState } from 'react'
-import { Tipo } from 'src/generated/graphql'
-import './form.css'
-import Map from 'pigeon-maps'
-import { useDimensions } from 'src/hooks/useDimensions'
-import { useBreakpoints } from 'src/hooks/useBreakpoints'
+import React, { useState, useEffect } from 'react';
+import { Tipo } from 'src/generated/graphql';
+import './form.css';
+import Map from 'pigeon-maps';
+import { useDimensions } from 'src/hooks/useDimensions';
+import { useBreakpoints } from 'src/hooks/useBreakpoints';
+import { useRepublicaActions } from 'src/actions/useRepublicaActions';
+import { useRepublicaStore } from 'src/store/reducers/republicas-reducer';
+import Marker from 'pigeon-marker';
 
 export function FomIput() {
-  const [universidade, setUniversidade] = useState('')
-  const [tipo, setTipo] = useState()
-  const { width } = useDimensions()
-  const { small } = useBreakpoints()
+  const [universidade, setUniversidade] = useState('');
+  const [tipo, setTipo] = useState();
+  const { width } = useDimensions();
+  const { small } = useBreakpoints();
+  const { fetchRepublicas } = useRepublicaActions();
+  const [republicas, error, loading] = useRepublicaStore();
+  const [centro, setCentro] = useState([0, 0]);
+
+  // useEffect(() => {}, [universidade])
+  console.log({ republicas });
+  useEffect(() => {
+    fetchRepublicas({
+      distancia: 2000,
+      tipo,
+      universidade: '5df5848110318d066da24ee6'
+    }).then(centro => centro && setCentro(centro));
+  }, [tipo]);
 
   function handleTipoClick(tipo: Tipo) {
-    if (universidade) setTipo(tipo)
+    if (universidade) setTipo(tipo);
   }
 
   function Button({ tipow, children }: any) {
@@ -20,7 +36,7 @@ export function FomIput() {
       <div onClick={() => handleTipoClick(tipow)}>
         <span className={`${tipo === tipow && 'active'}`}>{children}</span>
       </div>
-    )
+    );
   }
 
   return (
@@ -41,8 +57,15 @@ export function FomIput() {
         <Button tipow={Tipo.Mista}>mista</Button>
       </div>
       {universidade && tipo && (
-        <Map center={[-23.186077, -50.657391]} zoom={15} width={small ? width : 500} height={400} />
+        <Map center={[centro[1], centro[0]]} zoom={14} width={small ? width : 500} height={400}>
+          {republicas.map(
+            republica =>
+              republica.localizacao && (
+                <Marker key={republica.nome} anchor={[republica.localizacao[1], republica.localizacao[0]]} />
+              )
+          )}
+        </Map>
       )}
     </div>
-  )
+  );
 }

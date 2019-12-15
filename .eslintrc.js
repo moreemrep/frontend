@@ -18,7 +18,7 @@ module.exports = {
   rules: {
     "prettier/prettier": ["error", { 
       singleQuote: true,
-      semi: false,
+      semi: true,
       printWidth: 120
       
     }],

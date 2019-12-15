@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash efffd577d7d5bb8de48acf8de3739210
+ * @relayHash da601b74ef3d47b71aee1b330a530545
  */
 
 /* eslint-disable */
@@ -11,8 +11,9 @@
 import type { ConcreteRequest } from 'relay-runtime';
 export type Tipo = "FEMININA" | "MASCULINA" | "MISTA" | "%future added value";
 export type ProcurarRepublicaInput = {|
-  localizacao: $ReadOnlyArray<number>,
+  universidade: string,
   tipo: Tipo,
+  distancia: number,
 |};
 export type useRepublicaActionsProcurarRepublicaMutationVariables = {|
   input: ProcurarRepublicaInput
@@ -25,7 +26,9 @@ export type useRepublicaActionsProcurarRepublicaMutationResponse = {|
       +nome: string,
       +distancia: number,
       +descricao: ?string,
+      +localizacao: ?$ReadOnlyArray<number>,
     |}>,
+    +centro: $ReadOnlyArray<number>,
   |}
 |};
 export type useRepublicaActionsProcurarRepublicaMutation = {|
@@ -46,7 +49,9 @@ mutation useRepublicaActionsProcurarRepublicaMutation(
       nome
       distancia
       descricao
+      localizacao
     }
+    centro
   }
 }
 */
@@ -119,8 +124,22 @@ v1 = [
             "name": "descricao",
             "args": null,
             "storageKey": null
+          },
+          {
+            "kind": "ScalarField",
+            "alias": null,
+            "name": "localizacao",
+            "args": null,
+            "storageKey": null
           }
         ]
+      },
+      {
+        "kind": "ScalarField",
+        "alias": null,
+        "name": "centro",
+        "args": null,
+        "storageKey": null
       }
     ]
   }
@@ -145,11 +164,11 @@ return {
     "operationKind": "mutation",
     "name": "useRepublicaActionsProcurarRepublicaMutation",
     "id": null,
-    "text": "mutation useRepublicaActionsProcurarRepublicaMutation(\n  $input: ProcurarRepublicaInput!\n) {\n  payload: procurarRepublica(input: $input) {\n    success\n    error\n    republicas {\n      nome\n      distancia\n      descricao\n    }\n  }\n}\n",
+    "text": "mutation useRepublicaActionsProcurarRepublicaMutation(\n  $input: ProcurarRepublicaInput!\n) {\n  payload: procurarRepublica(input: $input) {\n    success\n    error\n    republicas {\n      nome\n      distancia\n      descricao\n      localizacao\n    }\n    centro\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'ab29c5fbb8fd838fbefc139889085019';
+(node/*: any*/).hash = '7178588fb73aba0345f64c5837e016d0';
 module.exports = node;
