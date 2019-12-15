@@ -10,6 +10,7 @@ import Marker from 'pigeon-marker';
 import { useDimensions } from 'src/hooks/useDimensions';
 import { useLocation } from 'react-router';
 import { usePosition } from 'src/hooks/usePosition';
+import { Form, Col, Button } from 'react-bootstrap';
 
 export const CadastrarRepublicaForm = () => {
   const [geolocation, setGeolocation] = useState(false);
@@ -75,13 +76,90 @@ export const Formulario = ({ toggleGeolocation, location }: any) => {
         return (
           <div>
             {error.REGISTER}
-            <Input name="nome" label="Nome da republica" />
-            <Input name="descricao" label="Descrição" />
+            <Form className="FormStyle">
+              <Form.Row>
+                <Form.Group as={Col} controlId="formGridEmail">
+                  <Form.Label>Email</Form.Label>
+                  <Form.Control type="email" placeholder="Digite o email" />
+                </Form.Group>
+
+                <Form.Group as={Col} controlId="formGridPassword">
+                  <Form.Label>Senha</Form.Label>
+                  <Form.Control type="password" placeholder="Senha" />
+                </Form.Group>
+              </Form.Row>
+
+              <Form.Row>
+                <Form.Group as={Col} controlId="formGridAddress1">
+                  <Form.Label>Endereço</Form.Label>
+                  <Form.Control placeholder="Rua:..., nº" />
+                </Form.Group>
+
+                <Form.Group as={Col} controlId="formGridCity">
+                  <Form.Label>Cidade</Form.Label>
+                  <Form.Control />
+                </Form.Group>
+
+                <Form.Group as={Col} controlId="formGridState">
+                  <Form.Label>Estado</Form.Label>
+                  <Form.Control as="select">
+                    <option>Selecione...</option>
+                    <option>Acre (AC)</option>
+                    <option>Alagoas (AL)</option>
+                    <option>Amapá (AP)</option>
+                    <option>Amazonas (AM)</option>
+                    <option>Bahia (BA)</option>
+                    <option>Ceará (CE)</option>
+                    <option>Distrito Federal (DF)</option>
+                    <option>Espírito Santo (ES)</option>
+                    <option>Goiás (GO)</option>
+                    <option>Maranhão (MA)</option>
+                    <option>Mato Grosso (MT)</option>
+                    <option>Mato Grosso do Sul (MS)</option>
+                    <option>Minas Gerais (MG)</option>
+                    <option>Pará (PA)</option>
+                    <option>Paraíba (PB)</option>
+                    <option>Paraná (PR)</option>
+                    <option>Pernambuco (PE)</option>
+                    <option>Piauí (PI)</option>
+                    <option>Rio de Janeiro (RJ)</option>
+                    <option>Rio Grande do Norte (RN)</option>
+                    <option>Rio Grande do Sul (RS)</option>
+                    <option>Rondônia (RO)</option>
+                    <option>Roraima (RR)</option>
+                    <option>Santa Catarina (SC)</option>
+                    <option>São Paulo (SP)</option>
+                    <option>Sergipe (SE)</option>
+                    <option>Tocantins (TO)</option>
+                  </Form.Control>
+                </Form.Group>
+              </Form.Row>
+
+              <Form.Group id="formGridCheckbox">
+                <Form.Check type="checkbox" label="Masculina" />
+                <Form.Check type="checkbox" label="Feminina" />
+                <Form.Check type="checkbox" label="Mista" />
+              </Form.Group>
+
+              <Button variant="primary" type="submit">
+                Submit
+              </Button>
+            </Form>
             {!location && (
-              <div>
-                <Input name="longitude" label="longitude" />
-                <Input name="latitude" label="latitude" />
-              </div>
+              <Form className="locStyle">
+                <Form.Label>Coordenadas</Form.Label>
+                <Form.Row>
+                  <Form.Group as={Col}>
+                    <Form.Control type="Text" placeholder="Latitude" />
+                  </Form.Group>
+                  <Form.Group as={Col}>
+                    <Form.Control type="Text" placeholder="Longitude" />
+                  </Form.Group>
+                </Form.Row>
+                <Button variant="primary" href="https://justgetflux.com/map.html">
+                  Descobrir coordenadas da Rep
+                </Button>
+              </Form>
             )}
             <button onClick={toggleGeolocation}>{location ? 'desligar' : 'ligar'}</button>
             <Map onClick={onMapClick} center={center} zoom={15} width={300} height={400}>

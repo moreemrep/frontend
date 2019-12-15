@@ -9,3 +9,14 @@ html, body {
 #root {
     height: inherit
 }
+
+.FormStyle{
+    padding-right: 20%;
+    padding-left: 20%;
+    padding-top: 5%;
+}
+
+.locStyle{
+    padding-right: 30%;
+    padding-left: 30%;
+}
