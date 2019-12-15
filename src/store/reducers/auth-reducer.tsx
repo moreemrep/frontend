@@ -1,7 +1,7 @@
 import { useDispatch } from '../hooks/useDispatch';
 import { Action } from '../StoreProvider';
 import { useStore } from '../hooks/useStore';
-import { CriarRepublicaPayload, RepublicaUser } from 'src/generated/graphql';
+import { RepublicaUser } from 'src/generated/graphql';
 
 export interface AuthState {
   email?: string;
@@ -30,7 +30,7 @@ export function authReducer(state: AuthState, action: Action) {
 export function useAuthDispatch() {
   const login = useDispatch<AuthState>(types.LOGIN);
   const register = useDispatch<AuthState>(types.REGISTER);
-  const forgotPassword = useDispatch<void>(types.FORGOT_PASSWORD);
+  const forgotPassword = useDispatch(types.FORGOT_PASSWORD);
 
   return {
     login,

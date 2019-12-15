@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { graphql } from 'babel-plugin-relay/macro';
 import { useMutation } from 'relay-hooks';
 import { useAuthDispatch } from 'src/store/reducers/auth-reducer';
@@ -60,7 +61,7 @@ export function useAuthActions() {
         const { payload }: Payload<LoginPayload> = await loginMutation();
 
         login.success({
-          email: res.user.email!,
+          email,
           republica: payload.republica
         });
 
@@ -81,14 +82,14 @@ export function useAuthActions() {
 
         const { payload }: Payload<CriarRepublicaPayload> = await registerMutation({ variables: { input: republica } });
 
-        if (payload.error) {
-          register.failure(payload.error);
+        if (payload.error || !payload.republica) {
+          register.failure(payload.error || 'Republica nao encontrada');
           return false;
         }
 
         register.success({
-          email: res.user.email!,
-          republica: payload.republica!
+          email: crendenciais.email,
+          republica: payload.republica
         });
         return true;
       } catch (err) {
