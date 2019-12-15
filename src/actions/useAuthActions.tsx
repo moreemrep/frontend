@@ -103,7 +103,7 @@ export function useAuthActions() {
         forgotPassword.request();
 
         setTimeout(() => {
-          forgotPassword.success();
+          forgotPassword.success('');
         }, 2000);
       } catch (err) {
         forgotPassword.failure(err.message);
