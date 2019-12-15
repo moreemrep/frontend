@@ -9,6 +9,7 @@ export type Scalars = {
   Datetime: any,
 };
 
+
 export type CriarRepublicaInput = {
   nome: Scalars['String'],
   endereco: Scalars['String'],
@@ -17,6 +18,13 @@ export type CriarRepublicaInput = {
   descricao: Scalars['String'],
   disponivel: Scalars['Boolean'],
   mostrarNoMapa: Scalars['Boolean'],
+};
+
+export type CriarRepublicaPayload = {
+   __typename?: 'CriarRepublicaPayload',
+  republica?: Maybe<RepublicaUser>,
+  success: Scalars['Boolean'],
+  error?: Maybe<Scalars['String']>,
 };
 
 export type CriarUniversidadeInput = {
@@ -35,11 +43,19 @@ export type EditarRepublicaInput = {
   disponivel?: Maybe<Scalars['Boolean']>,
 };
 
+export type LoginPayload = {
+   __typename?: 'LoginPayload',
+  republica: RepublicaUser,
+  success: Scalars['Boolean'],
+  error?: Maybe<Scalars['String']>,
+};
+
 export type Mutation = {
    __typename?: 'Mutation',
   criarUniversidade: ResponsePayload,
-  criarRepublica: ResponsePayload,
+  criarRepublica: CriarRepublicaPayload,
   editarRepublica: ResponsePayload,
+  login: LoginPayload,
   procurarRepublica: ProcurarRepublicaPayload,
   procurarUniversidade: ProcurarUniversidadePayload,
 };
@@ -131,6 +147,17 @@ export type RepublicaPayload = {
   nome: Scalars['String'],
   descricao?: Maybe<Scalars['String']>,
   localizacao?: Maybe<Array<Scalars['Float']>>,
+};
+
+export type RepublicaUser = Node & {
+   __typename?: 'RepublicaUser',
+  id: Scalars['ID'],
+  nome?: Maybe<Scalars['String']>,
+  endereco?: Maybe<Scalars['String']>,
+  localizacao?: Maybe<Array<Maybe<Scalars['Float']>>>,
+  tipo?: Maybe<Tipo>,
+  mostrarNoMapa?: Maybe<Scalars['Boolean']>,
+  disponivel?: Maybe<Scalars['Boolean']>,
 };
 
 export type ResponsePayload = {

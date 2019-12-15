@@ -1,6 +1,17 @@
+directive @auth on FIELD_DEFINITION
 
 interface Node { 
     id: ID!
+}
+type CriarRepublicaPayload { 
+    republica: RepublicaUser
+    success: Boolean!
+    error: String
+}
+type LoginPayload { 
+    republica: RepublicaUser!
+    success: Boolean!
+    error: String
 }
 type RepublicaPayload { 
     distancia: Float!
@@ -25,6 +36,15 @@ type Republica implements Node {
     tipo: Tipo
     distancia: Int
 }
+type RepublicaUser implements Node { 
+    id: ID!
+    nome: String
+    endereco: String
+    localizacao: [Float]
+    tipo: Tipo
+    mostrarNoMapa: Boolean
+    disponivel: Boolean
+}
 type Universidade implements Node { 
     id: ID!
     nome: String
@@ -46,8 +66,9 @@ type Query {
 }
 type Mutation { 
     criarUniversidade(input: CriarUniversidadeInput!): ResponsePayload!
-    criarRepublica(input: CriarRepublicaInput!): ResponsePayload!
+    criarRepublica(input: CriarRepublicaInput!): CriarRepublicaPayload!
     editarRepublica(input: EditarRepublicaInput!): ResponsePayload!
+    login: LoginPayload! @auth
     procurarRepublica(input: ProcurarRepublicaInput!): ProcurarRepublicaPayload!
     procurarUniversidade(input: ProcurarUniversidadeInput!): ProcurarUniversidadePayload!
 }

@@ -47,18 +47,23 @@ export const Formulario = ({ toggleGeolocation, location }: any) => {
       })}
       onSubmit={async (values, helpers) => {
         if (
-          await register({
-            disponivel: values.disponivel,
-            endereco: values.endereco,
-            localizacao: [values.longitude, values.latitude],
-            mostrarNoMapa: values.mostrarNoMapa,
-            nome: values.nome,
-            tipo: values.tipo,
-            email: values.email,
-            senha: values.senha,
-            cidade: values.cidade
-            //estado: values.estado
-          })
+          await register(
+            {
+              disponivel: values.disponivel,
+              endereco: values.endereco,
+              localizacao: [values.longitude, values.latitude],
+              mostrarNoMapa: values.mostrarNoMapa,
+              nome: values.nome,
+              tipo: values.tipo,
+              descricao: ''
+              // cidade: values.cidade,
+              // estado: values.estado
+            },
+            {
+              email: values.email,
+              senha: values.senha
+            }
+          )
         ) {
           push('home');
         }
@@ -67,7 +72,7 @@ export const Formulario = ({ toggleGeolocation, location }: any) => {
         const { setFieldValue, values } = helpers;
 
         if (loading.REGISTER) return <div>loading</div>;
-        console.log(values);
+
         function onMapClick(ev: MapClickEvent) {
           setFieldValue('latitude', ev.latLng[0]);
           setFieldValue('longitude', ev.latLng[1]);
@@ -77,7 +82,7 @@ export const Formulario = ({ toggleGeolocation, location }: any) => {
             ? [values.latitude, values.longitude]
             : location || [values.latitude, values.longitude];
 
-        const setValue = (ev: any, nome: string) => setFieldValue(nome, ev.target.value);
+        const setValue = (nome: string, ev: any) => setFieldValue(nome, ev.target.value);
 
         return (
           <div>
@@ -126,8 +131,8 @@ export const Formulario = ({ toggleGeolocation, location }: any) => {
                   <Form.Label>Cidade</Form.Label>
                   <Form.Control onChange={(ev: any) => setValue('cidade', ev)} placeholder="Cidade" />
                 </Form.Group>
-
-                {/* <Form.Group as={Col} controlId="EstadoRep">
+                {/* 
+                <Form.Group as={Col} controlId="EstadoRep">
                   <Form.Label>Estado</Form.Label>
                   <Form.Control onChange={(ev: any) => setValue('estado', ev)} as="select">
                     <option>Selecione...</option>

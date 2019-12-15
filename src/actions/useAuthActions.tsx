@@ -1,64 +1,113 @@
-import { graphql } from 'babel-plugin-relay/macro'
-import { useMutation } from 'relay-hooks'
-import { useAuthDispatch } from 'src/store/reducers/auth-reducer'
-import { CriarRepublicaInput, ResponsePayload } from 'src/generated/graphql'
-import { Payload } from 'src/types/types'
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+import { graphql } from 'babel-plugin-relay/macro';
+import { useMutation } from 'relay-hooks';
+import { useAuthDispatch } from 'src/store/reducers/auth-reducer';
+import { CriarRepublicaInput, ResponsePayload, CriarRepublicaPayload, LoginPayload } from 'src/generated/graphql';
+import { Payload } from 'src/types/types';
+import { useFirebase } from 'src/services/useFirebase';
 
 const MUTATION_REGISTER = graphql`
   mutation useAuthActionsRegisterMutation($input: CriarRepublicaInput!) {
     payload: criarRepublica(input: $input) {
       success
       error
+      republica {
+        nome
+        disponivel
+        endereco
+        localizacao
+        mostrarNoMapa
+        tipo
+      }
     }
   }
-`
+`;
+
+const MUTATION_LOGIN = graphql`
+  mutation useAuthActionsLoginMutation {
+    payload: login {
+      success
+      error
+      republica {
+        nome
+        disponivel
+        endereco
+        localizacao
+        mostrarNoMapa
+        tipo
+      }
+    }
+  }
+`;
+
+interface RegistrarInput {
+  email: string;
+  senha: string;
+}
 
 export function useAuthActions() {
-  const { login, register, forgotPassword } = useAuthDispatch()
-  const [registerMutation] = useMutation(MUTATION_REGISTER)
+  const { login, register, forgotPassword } = useAuthDispatch();
+  const [registerMutation] = useMutation(MUTATION_REGISTER);
+  const [loginMutation] = useMutation(MUTATION_LOGIN);
+  const { auth } = useFirebase();
 
   return {
     login: async ({ email, password }: any) => {
       try {
-        login.request()
+        const res = await auth.signInWithEmailAndPassword(email, password);
 
-        setTimeout(() => {
-          login.success({ email: 'a@a.com', republica: 'batcaverna' })
-        }, 2000)
+        if (!res.user) throw new Error('erou');
+
+        const { payload }: Payload<LoginPayload> = await loginMutation();
+
+        login.success({
+          email,
+          republica: payload.republica
+        });
+
+        login.request();
       } catch (err) {
-        login.failure(err.message)
+        login.failure(err.message);
       }
     },
 
-    register: async (input: CriarRepublicaInput) => {
+    register: async (republica: CriarRepublicaInput, crendenciais: RegistrarInput) => {
       try {
-        register.request()
+        register.request();
 
-        const { payload }: Payload<ResponsePayload> = await registerMutation({ variables: { input } })
-
-        if (payload.error) {
-          register.failure(payload.error)
-          return false
+        const res = await auth.createUserWithEmailAndPassword(crendenciais.email, crendenciais.senha);
+        if (!res.user) {
+          throw new Error('erou');
         }
 
-        register.success({ email: 'a@a.com', republica: 'batcaverna' })
-        return true
+        const { payload }: Payload<CriarRepublicaPayload> = await registerMutation({ variables: { input: republica } });
+
+        if (payload.error || !payload.republica) {
+          register.failure(payload.error || 'Republica nao encontrada');
+          return false;
+        }
+
+        register.success({
+          email: crendenciais.email,
+          republica: payload.republica
+        });
+        return true;
       } catch (err) {
-        register.failure(err.message)
-        return false
+        register.failure(err.message);
+        return false;
       }
     },
 
     forgotPassword: async ({ email }: any) => {
       try {
-        forgotPassword.request()
+        forgotPassword.request();
 
         setTimeout(() => {
-          forgotPassword.success()
-        }, 2000)
+          forgotPassword.success('');
+        }, 2000);
       } catch (err) {
-        forgotPassword.failure(err.message)
+        forgotPassword.failure(err.message);
       }
     }
-  }
+  };
 }
