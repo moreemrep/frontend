@@ -12,7 +12,7 @@
  
  #namer input {
   border: 0;
-  border-bottom: 2px solid #1976D2;
+  border-bottom: 2px solid #363636;
   width: 100%;
   font-size: 30px;
   line-height: 35px;
@@ -20,16 +20,16 @@
   text-align: center;
   padding: 10px;
   background: transparent;
-   color: #BBDEFB;
+  color: #fff;
  }
  
  #namer input:focus {
   outline: 0;
-   color: #BBDEFB;
+  color: #fff;
  }
  
  #namer input::placeholder {
-  color: #1976D2;
+  color: #FFFFFF;
  }
  
  .namer-controls {
@@ -70,6 +70,6 @@
  
  .namer-controls div span.active {
   box-shadow: none;
-  background-color: #1976D2;
-  color: #fff;
+  background-color: #363636AA;
+  color: #FFF;
  }

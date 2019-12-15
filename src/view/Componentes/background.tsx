@@ -57,7 +57,7 @@ export function Background() {
       }}
       style={{
         width: '100%',
-        backgroundColor: '#660066'
+        backgroundColor: '#000'
       }}
     />
   )
