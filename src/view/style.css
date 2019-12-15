@@ -14,12 +14,18 @@ html, body {
 }
 
 .FormStyle{
-    padding-right: 20%;
-    padding-left: 20%;
+    padding-right: 10%;
+    padding-left: 10%;
     padding-top: 5%;
 }
 
 .locStyle{
     padding-right: 30%;
     padding-left: 30%;
+}
+
+.formEnter{
+    padding-right: 20%;
+    padding-left: 20%;
+    padding-top: 10%;
 }
