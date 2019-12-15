@@ -117,7 +117,7 @@ export const Formulario = ({ toggleGeolocation, location }: any) => {
 
                 <Form.Group as={Col} controlId="Senha">
                   <Form.Label>Senha</Form.Label>
-                  <Form.Control onChange={(ev: any) => setValue('senha', ev)} type="password" placeholder="Senha" />
+                  <Form.Control onChange={(ev: any) => setValue('senha', ev)} type="password" placeholder="Minimo 6 digitos" />
                 </Form.Group>
               </Form.Row>
 
@@ -167,7 +167,7 @@ export const Formulario = ({ toggleGeolocation, location }: any) => {
                 </Form.Group> */}
               </Form.Row>
 
-              <Button variant="primary" type="submit">
+              <Button className="BtCadastrar" variant="outline-primary" type="submit">
                 Cadastrar
               </Button>
             </Form>

@@ -25,7 +25,15 @@ html, body {
 }
 
 .formEnter{
-    padding-right: 20%;
-    padding-left: 20%;
-    padding-top: 10%;
+    margin-top: 50%;
+    margin: 10%;
 }
+
+.BtCadastrar{
+    padding: 1%;
+    width: 12%;
+  }
+
+.BtEsqueceuSh{
+      margin-left: 10%;
+  }
