@@ -1,8 +1,15 @@
-import React from 'react'
-import { Navbar, NavDropdown, Nav } from 'react-bootstrap'
-import '../style.css'
+import React from 'react';
+import { Navbar, NavDropdown, Nav } from 'react-bootstrap';
+import '../style.css';
+import { useAuthStore } from 'src/store/reducers/auth-reducer';
+import { useAuthActions } from 'src/actions/useAuthActions';
 
 export function Navb() {
+  const [auth] = useAuthStore();
+  const { logout } = useAuthActions();
+
+  const logado = !!auth.email;
+
   return (
     <Navbar className="Navstyle" collapseOnSelect expand="lg" bg="transparent" variant="dark">
       <Navbar.Brand href="/#/">#moreemrep</Navbar.Brand>
@@ -17,11 +24,18 @@ export function Navb() {
             <NavDropdown.Item href="/#/informacoes#colaborar">Como colaborar</NavDropdown.Item>
           </NavDropdown>
         </Nav>
-        <Nav>
-          <Nav.Link href="/#/cadastrar">Cadastrar República</Nav.Link>
-          <Nav.Link href="/#/login">Entrar</Nav.Link>
-        </Nav>
+        {logado ? (
+          <Nav>
+            <Nav.Link href="/#/editar">Editar República</Nav.Link>
+            <Nav.Link onClick={logout}>Sair</Nav.Link>
+          </Nav>
+        ) : (
+          <Nav>
+            <Nav.Link href="/#/cadastrar">Cadastrar República</Nav.Link>
+            <Nav.Link href="/#/login">Entrar</Nav.Link>
+          </Nav>
+        )}
       </Navbar.Collapse>
     </Navbar>
-  )
+  );
 }

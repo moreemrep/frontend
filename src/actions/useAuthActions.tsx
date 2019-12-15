@@ -46,26 +46,40 @@ interface RegistrarInput {
 }
 
 export function useAuthActions() {
-  const { login, register, forgotPassword } = useAuthDispatch();
+  const { login, register, forgotPassword, logout } = useAuthDispatch();
   const [registerMutation] = useMutation(MUTATION_REGISTER);
   const [loginMutation] = useMutation(MUTATION_LOGIN);
   const { auth } = useFirebase();
 
   return {
     login: async ({ email, password }: any) => {
+      login.request();
       try {
         const res = await auth.signInWithEmailAndPassword(email, password);
 
         if (!res.user) throw new Error('erou');
 
-        const { payload }: Payload<LoginPayload> = await loginMutation();
+        const { payload }: Payload<LoginPayload> = await loginMutation({ variables: {} });
 
         login.success({
           email,
           republica: payload.republica
         });
+      } catch (err) {
+        login.failure(err.message);
+      }
+    },
 
+    loginFirebase: async (email: string) => {
+      try {
         login.request();
+
+        const { payload }: Payload<LoginPayload> = await loginMutation({ variables: {} });
+
+        login.success({
+          email,
+          republica: payload.republica
+        });
       } catch (err) {
         login.failure(err.message);
       }
@@ -108,6 +122,11 @@ export function useAuthActions() {
       } catch (err) {
         forgotPassword.failure(err.message);
       }
+    },
+
+    logout: async () => {
+      await auth.signOut();
+      logout();
     }
   };
 }
