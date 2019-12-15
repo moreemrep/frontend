@@ -56,8 +56,8 @@ export const Formulario = ({ toggleGeolocation, location }: any) => {
             tipo: values.tipo,
             email: values.email,
             senha: values.senha,
-            cidade: values.cidade,
-            estado: values.estado
+            cidade: values.cidade
+            //estado: values.estado
           })
         ) {
           push('home');
@@ -127,7 +127,7 @@ export const Formulario = ({ toggleGeolocation, location }: any) => {
                   <Form.Control onChange={(ev: any) => setValue('cidade', ev)} placeholder="Cidade" />
                 </Form.Group>
 
-                <Form.Group as={Col} controlId="EstadoRep">
+                {/* <Form.Group as={Col} controlId="EstadoRep">
                   <Form.Label>Estado</Form.Label>
                   <Form.Control onChange={(ev: any) => setValue('estado', ev)} as="select">
                     <option>Selecione...</option>
@@ -159,7 +159,7 @@ export const Formulario = ({ toggleGeolocation, location }: any) => {
                     <option value={Tipo.SE}>Sergipe (SE)</option>
                     <option value={Tipo.TO}>Tocantins (TO)</option>
                   </Form.Control>
-                </Form.Group>
+                </Form.Group> */}
               </Form.Row>
 
               <Button variant="primary" type="submit">
