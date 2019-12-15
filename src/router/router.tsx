@@ -1,16 +1,16 @@
 import React, { lazy, Suspense } from 'react'
 import { Route, Redirect, Switch, HashRouter } from 'react-router-dom'
-import { useAuthStore } from '../store/reducers/auth-reducer'
 import { GAListener } from './gaListener'
+import { useAuthStore } from 'src/store/reducers/auth-reducer'
 
 const LoadingMessage = () => <div>loading...</div>
 
-const CadastrarRepublica = lazy(() => import('../pages/CadastrarRepublica'))
-const ProcurarRepublica = lazy(() => import('../pages/ProcurarRepublica'))
-const EditarRepublica = lazy(() => import('../pages/EditarRepublica'))
-const Login = lazy(() => import('../pages/Login'))
-const Info = lazy(() => import('../pages/info'))
-const LandingPage = lazy(() => import('../pages/LandingPage'))
+const CadastrarRepublica = lazy(() => import('../view/Pages/CadastrarRepublica/CadastrarRepublicaPage'))
+const ProcurarRepublica = lazy(() => import('../view/Pages/ProcurarRepublica'))
+const EditarRepublica = lazy(() => import('../view/Pages/EditarRepublica'))
+const Login = lazy(() => import('../view/Pages/Login'))
+const Info = lazy(() => import('../view/Pages/info'))
+const LandingPage = lazy(() => import('../view/Pages/LandingPage'))
 
 export function Router() {
   const [user] = useAuthStore()

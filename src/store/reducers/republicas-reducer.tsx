@@ -9,10 +9,7 @@ const types = {
   FETCH_REPUBLICAS: 'FETCH_REPUBLICAS'
 }
 
-export function republicaReducer(
-  state: Array<RepublicaPayload>,
-  action: Action
-) {
+export function republicaReducer(state: Array<RepublicaPayload>, action: Action) {
   switch (action.type) {
     case 'FETCH_REPUBLICAS_SUCCESS':
       return action.payload

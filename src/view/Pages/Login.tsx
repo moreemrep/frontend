@@ -1,6 +1,6 @@
 import React from 'react'
-import { useAuthActions } from '../actions/useAuthActions'
-import { useAuthStore } from '../store/reducers/auth-reducer'
+import { useAuthActions } from 'src/actions/useAuthActions'
+import { useAuthStore } from 'src/store/reducers/auth-reducer'
 
 const Login: React.FC = () => {
   const { login, forgotPassword } = useAuthActions()
@@ -13,9 +13,7 @@ const Login: React.FC = () => {
       {error.LOGIN}
       {error.FORGOT_PASSWORD}
       <button onClick={() => login({ email: 'asd', password: 'dd' })}>Login</button>
-
       <button onClick={() => forgotPassword({ email: 'asd' })}>Esqueceu a senha</button>
-      <a href="/landingpage">Voltar Principal</a>
     </div>
   )
 }

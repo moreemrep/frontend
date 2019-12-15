@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { useRepublicaActions } from '../actions/useRepublicaActions'
-import { useRepublicaStore } from '../store/reducers/republicas-reducer'
-import { Tipo } from '../generated/graphql'
-import { useBreakpoints } from '../hooks/useBreakpoints'
+import { useRepublicaStore } from 'src/store/reducers/republicas-reducer'
+import { useRepublicaActions } from 'src/actions/useRepublicaActions'
+import { useBreakpoints } from 'src/hooks/useBreakpoints'
+import { Tipo } from 'src/generated/graphql'
 
 const ProcurarRepublica: React.FC = () => {
   const [republicas, error, loading] = useRepublicaStore()

@@ -1,8 +1,8 @@
-import { useAuthDispatch } from '../store/reducers/auth-reducer'
 import { graphql } from 'babel-plugin-relay/macro'
 import { useMutation } from 'relay-hooks'
-import { CriarRepublicaInput, ResponsePayload } from '../generated/graphql'
-import { Payload } from '../generated/types'
+import { useAuthDispatch } from 'src/store/reducers/auth-reducer'
+import { CriarRepublicaInput, ResponsePayload } from 'src/generated/graphql'
+import { Payload } from 'src/types/types'
 
 const MUTATION_REGISTER = graphql`
   mutation useAuthActionsRegisterMutation($input: CriarRepublicaInput!) {
@@ -38,12 +38,14 @@ export function useAuthActions() {
 
         if (payload.error) {
           register.failure(payload.error)
-          return
+          return false
         }
 
         register.success({ email: 'a@a.com', republica: 'batcaverna' })
+        return true
       } catch (err) {
         register.failure(err.message)
+        return false
       }
     },
 
