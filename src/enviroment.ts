@@ -1,24 +1,23 @@
-import { execute } from 'apollo-link'
-import { setContext } from 'apollo-link-context'
-import { HttpLink } from 'apollo-link-http'
-// import { WebSocketLink } from 'apollo-link-ws'
-import { parse } from 'graphql'
-import { Environment, Network, RecordSource, Store } from 'relay-runtime'
-// import firebase from './services/firebase'
+import { execute } from 'apollo-link';
+import { setContext } from 'apollo-link-context';
+import { HttpLink } from 'apollo-link-http';
+import { parse } from 'graphql';
+import { Environment, Network, RecordSource, Store } from 'relay-runtime';
+import { useFirebase } from './services/useFirebase';
 
-// let userFire: firebase.User
+const { auth } = useFirebase();
 
-// firebase.auth().onAuthStateChanged((user: any) => {
-//   userFire = user
-// })
+let userFire: firebase.User | null;
+auth.onAuthStateChanged(user => {
+  userFire = user;
+});
 
 const authLink = setContext(async (_: any, { headers }: any) =>
-  1
+  userFire
     ? {
         headers: {
           ...headers,
-          token: 'teste'
-          // token: await userFire.getIdToken(true)
+          token: await userFire.getIdToken(true)
         }
       }
     : {
@@ -26,41 +25,24 @@ const authLink = setContext(async (_: any, { headers }: any) =>
           ...headers
         }
       }
-)
+);
 
 const httpLink = new HttpLink({
   // eslint-disable-next-line no-undef
   uri: process.env.REACT_APP_GRAPHQL
-})
-
-// const subscriptionLink = () => new WebSocketLink({
-//   options: {
-//     connectionParams: async () => (userFire ? { token: await userFire.getIdToken(true) } : {}),
-//     reconnect: true
-//   },
-//   uri: __DEV__
-//     ? 'ws://192.168.100.13:3000/graphql'
-//     : 'wss://automation-batcaverna.herokuapp.com/graphql'
-// })
+});
 
 function fetchFunction(operation: { text: any }, variables: any, cacheConfig: any, uploadables: any): any {
   return execute(authLink.concat(httpLink), {
     query: parse(operation.text),
     variables
-  })
+  });
 }
 
-// function subscriptionFunction (operation: any, variables: any, cacheConfig: any, observer: any) {
-//   return subscriptionLink().request({
-//     query: parse(operation.text),
-//     variables
-//   })
-// }
-
-const network = Network.create(fetchFunction)
-const store = new Store(new RecordSource())
+const network = Network.create(fetchFunction);
+const store = new Store(new RecordSource());
 
 export const environment = new Environment({
   network,
   store
-})
+});
