@@ -32,12 +32,15 @@ export const Formulario = ({ toggleGeolocation, location }: any) => {
       initialValues={{
         nome: '',
         tipo: Tipo.Mista,
-        descricao: '',
         disponivel: false,
         endereco: '',
         mostrarNoMapa: true,
         longitude: 0,
-        latitude: 0
+        latitude: 0,
+        email: '',
+        senha: '',
+        cidade: '',
+        estado: ''
       }}
       validationSchema={object().shape({
         nome: string().required('obrigatório')
@@ -45,13 +48,16 @@ export const Formulario = ({ toggleGeolocation, location }: any) => {
       onSubmit={async (values, helpers) => {
         if (
           await register({
-            descricao: values.descricao,
             disponivel: values.disponivel,
             endereco: values.endereco,
             localizacao: [values.longitude, values.latitude],
             mostrarNoMapa: values.mostrarNoMapa,
             nome: values.nome,
-            tipo: values.tipo
+            tipo: values.tipo,
+            email: values.email,
+            senha: values.senha,
+            cidade: values.cidade,
+            estado: values.estado
           })
         ) {
           push('home');
@@ -61,7 +67,7 @@ export const Formulario = ({ toggleGeolocation, location }: any) => {
         const { setFieldValue, values } = helpers;
 
         if (loading.REGISTER) return <div>loading</div>;
-
+        console.log(values);
         function onMapClick(ev: MapClickEvent) {
           setFieldValue('latitude', ev.latLng[0]);
           setFieldValue('longitude', ev.latLng[1]);
@@ -70,76 +76,94 @@ export const Formulario = ({ toggleGeolocation, location }: any) => {
           values.longitude !== 0 && values.latitude !== 0
             ? [values.latitude, values.longitude]
             : location || [values.latitude, values.longitude];
+
+        const setValue = (ev: any, nome: string) => setFieldValue(nome, ev.target.value);
+
         return (
           <div>
             {error.REGISTER}
             <Form className="FormStyle" onSubmit={helpers.handleSubmit}>
               <Form.Row>
-                <Form.Group as={Col} controlId="formGridEmail">
-                  <Form.Label>Email</Form.Label>
-                  <Form.Control type="email" placeholder="Digite o email" />
+                <Form.Group as={Col} controlId="NomeRep">
+                  <Form.Label>Nome da República</Form.Label>
+                  <Form.Control onChange={(ev: any) => setValue('nome', ev)} type="Name" placeholder="República" />
                 </Form.Group>
 
-                <Form.Group as={Col} controlId="formGridPassword">
-                  <Form.Label>Senha</Form.Label>
-                  <Form.Control type="password" placeholder="Senha" />
-                </Form.Group>
-              </Form.Row>
-
-              <Form.Row>
-                <Form.Group as={Col} controlId="formGridAddress1">
-                  <Form.Label>Endereço</Form.Label>
-                  <Form.Control placeholder="Rua:..., nº" />
-                </Form.Group>
-
-                <Form.Group as={Col} controlId="formGridCity">
-                  <Form.Label>Cidade</Form.Label>
-                  <Form.Control />
-                </Form.Group>
-
-                <Form.Group as={Col} controlId="formGridState">
-                  <Form.Label>Estado</Form.Label>
-                  <Form.Control as="select">
-                    <option>Selecione...</option>
-                    <option>Acre (AC)</option>
-                    <option>Alagoas (AL)</option>
-                    <option>Amapá (AP)</option>
-                    <option>Amazonas (AM)</option>
-                    <option>Bahia (BA)</option>
-                    <option>Ceará (CE)</option>
-                    <option>Distrito Federal (DF)</option>
-                    <option>Espírito Santo (ES)</option>
-                    <option>Goiás (GO)</option>
-                    <option>Maranhão (MA)</option>
-                    <option>Mato Grosso (MT)</option>
-                    <option>Mato Grosso do Sul (MS)</option>
-                    <option>Minas Gerais (MG)</option>
-                    <option>Pará (PA)</option>
-                    <option>Paraíba (PB)</option>
-                    <option>Paraná (PR)</option>
-                    <option>Pernambuco (PE)</option>
-                    <option>Piauí (PI)</option>
-                    <option>Rio de Janeiro (RJ)</option>
-                    <option>Rio Grande do Norte (RN)</option>
-                    <option>Rio Grande do Sul (RS)</option>
-                    <option>Rondônia (RO)</option>
-                    <option>Roraima (RR)</option>
-                    <option>Santa Catarina (SC)</option>
-                    <option>São Paulo (SP)</option>
-                    <option>Sergipe (SE)</option>
-                    <option>Tocantins (TO)</option>
+                <Form.Group controlId="SexoRep">
+                  <Form.Label>Tipo</Form.Label>
+                  <Form.Control as="select" onChange={(ev: any) => setValue('tipo', ev)}>
+                    <option>Selecione</option>
+                    <option value={Tipo.Masculina}>Masculina</option>
+                    <option value={Tipo.Feminina}>Feminina</option>
+                    <option value={Tipo.Mista}>Mista</option>
                   </Form.Control>
                 </Form.Group>
               </Form.Row>
 
-              <Form.Group id="formGridCheckbox">
-                <Form.Check type="checkbox" label="Masculina" />
-                <Form.Check type="checkbox" label="Feminina" />
-                <Form.Check type="checkbox" label="Mista" />
-              </Form.Group>
+              <Form.Row>
+                <Form.Group as={Col} controlId="Email">
+                  <Form.Label>Email</Form.Label>
+                  <Form.Control
+                    onChange={(ev: any) => setValue('email', ev)}
+                    type="email"
+                    placeholder="Digite o email"
+                  />
+                </Form.Group>
+
+                <Form.Group as={Col} controlId="Senha">
+                  <Form.Label>Senha</Form.Label>
+                  <Form.Control onChange={(ev: any) => setValue('senha', ev)} type="password" placeholder="Senha" />
+                </Form.Group>
+              </Form.Row>
+
+              <Form.Row>
+                <Form.Group as={Col} controlId="EnderecoRep">
+                  <Form.Label>Endereço</Form.Label>
+                  <Form.Control onChange={(ev: any) => setValue('endereco', ev)} placeholder="Rua:..., nº" />
+                </Form.Group>
+
+                <Form.Group as={Col} controlId="CidadeRep">
+                  <Form.Label>Cidade</Form.Label>
+                  <Form.Control onChange={(ev: any) => setValue('cidade', ev)} placeholder="Cidade" />
+                </Form.Group>
+
+                <Form.Group as={Col} controlId="EstadoRep">
+                  <Form.Label>Estado</Form.Label>
+                  <Form.Control onChange={(ev: any) => setValue('estado', ev)} as="select">
+                    <option>Selecione...</option>
+                    <option value={Tipo.AC}>Acre (AC)</option>
+                    <option value={Tipo.AL}>Alagoas (AL)</option>
+                    <option value={Tipo.AP}>Amapá (AP)</option>
+                    <option value={Tipo.AM}>Amazonas (AM)</option>
+                    <option value={Tipo.BA}>Bahia (BA)</option>
+                    <option value={Tipo.CE}>Ceará (CE)</option>
+                    <option value={Tipo.DF}>Distrito Federal (DF)</option>
+                    <option value={Tipo.ES}>Espírito Santo (ES)</option>
+                    <option value={Tipo.GO}>Goiás (GO)</option>
+                    <option value={Tipo.MA}>Maranhão (MA)</option>
+                    <option value={Tipo.MT}>Mato Grosso (MT)</option>
+                    <option value={Tipo.MS}>Mato Grosso do Sul (MS)</option>
+                    <option value={Tipo.MG}>Minas Gerais (MG)</option>
+                    <option value={Tipo.PA}>Pará (PA)</option>
+                    <option value={Tipo.PB}>Paraíba (PB)</option>
+                    <option value={Tipo.PR}>Paraná (PR)</option>
+                    <option value={Tipo.PE}>Pernambuco (PE)</option>
+                    <option value={Tipo.PI}>Piauí (PI)</option>
+                    <option value={Tipo.RJ}>Rio de Janeiro (RJ)</option>
+                    <option value={Tipo.RN}>Rio Grande do Norte (RN)</option>
+                    <option value={Tipo.RS}>Rio Grande do Sul (RS)</option>
+                    <option value={Tipo.RO}>Rondônia (RO)</option>
+                    <option value={Tipo.RR}>Roraima (RR)</option>
+                    <option value={Tipo.SC}>Santa Catarina (SC)</option>
+                    <option value={Tipo.SP}>São Paulo (SP)</option>
+                    <option value={Tipo.SE}>Sergipe (SE)</option>
+                    <option value={Tipo.TO}>Tocantins (TO)</option>
+                  </Form.Control>
+                </Form.Group>
+              </Form.Row>
 
               <Button variant="primary" type="submit">
-                Submit
+                Cadastrar
               </Button>
             </Form>
             {!location && (
@@ -147,10 +171,14 @@ export const Formulario = ({ toggleGeolocation, location }: any) => {
                 <Form.Label>Coordenadas</Form.Label>
                 <Form.Row>
                   <Form.Group as={Col}>
-                    <Form.Control type="Text" placeholder="Latitude" />
+                    <Form.Control onChange={(ev: any) => setValue('latitude', ev)} type="Text" placeholder="Latitude" />
                   </Form.Group>
                   <Form.Group as={Col}>
-                    <Form.Control type="Text" placeholder="Longitude" />
+                    <Form.Control
+                      onChange={(ev: any) => setValue('longitude', ev)}
+                      type="Text"
+                      placeholder="Longitude"
+                    />
                   </Form.Group>
                 </Form.Row>
                 <a href="https://justgetflux.com/map.html" target="blank">
