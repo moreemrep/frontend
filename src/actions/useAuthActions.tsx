@@ -2,7 +2,7 @@
 import { graphql } from 'babel-plugin-relay/macro';
 import { useMutation } from 'relay-hooks';
 import { useAuthDispatch } from 'src/store/reducers/auth-reducer';
-import { CriarRepublicaInput, ResponsePayload, CriarRepublicaPayload, LoginPayload } from 'src/generated/graphql';
+import { CriarRepublicaInput, CriarRepublicaPayload, LoginPayload } from 'src/generated/graphql';
 import { Payload } from 'src/types/types';
 import { useFirebase } from 'src/services/useFirebase';
 
@@ -52,9 +52,9 @@ export function useAuthActions() {
   const { auth } = useFirebase();
 
   return {
-    login: async ({ email, password }: any) =>
+    login: async ({ email, senha }: RegistrarInput) =>
       login(async () => {
-        const res = await auth.signInWithEmailAndPassword(email, password);
+        const res = await auth.signInWithEmailAndPassword(email, senha);
 
         if (!res.user) throw new Error('erou');
 
@@ -100,9 +100,10 @@ export function useAuthActions() {
         };
       }),
 
-    forgotPassword: async ({ email }: any) =>
+    forgotPassword: async (email: string) =>
       forgotPassword(async () => {
-        return {};
+        await auth.sendPasswordResetEmail(email);
+        return;
       }),
 
     logout: async () => {

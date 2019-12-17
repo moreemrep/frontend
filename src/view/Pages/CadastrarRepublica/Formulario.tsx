@@ -130,7 +130,7 @@ export const CadastrarRepublicaForm = () => {
           Cadastrar
         </Button>
       </Form>
-      <button onClick={toggleGps}>{location ? 'desligar' : 'pegar do gps'}</button>
+      <button onClick={toggleGps}>{gps ? 'desligar' : 'pegar do gps'}</button>
       <Form className="locStyle">
         <Form.Label>Coordenadas</Form.Label>
         <Form.Row>
