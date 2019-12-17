@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useFirebase } from './services/useFirebase';
-import { useEffect } from 'react';
 import { useAuthActions } from './actions/useAuthActions';
 import { useAuthStore } from './store/reducers/auth-reducer';
 
