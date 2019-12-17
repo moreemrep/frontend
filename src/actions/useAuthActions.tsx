@@ -51,7 +51,7 @@ export function useAuthActions() {
   const { auth } = useFirebase();
 
   return {
-    login: async ({ email, senha }: RegistrarInput) =>
+    login: ({ email, senha }: RegistrarInput) =>
       login(async () => {
         const res = await auth.signInWithEmailAndPassword(email, senha);
 
@@ -67,7 +67,7 @@ export function useAuthActions() {
         };
       }),
 
-    loginFirebase: async (email: string) =>
+    loginFirebase: (email: string) =>
       login(async () => {
         const { payload }: Payload<LoginPayload> = await loginMutation({ variables: {} });
 
@@ -79,7 +79,7 @@ export function useAuthActions() {
         };
       }),
 
-    register: async (republica: CriarRepublicaInput, crendenciais: RegistrarInput) =>
+    register: (republica: CriarRepublicaInput, crendenciais: RegistrarInput) =>
       register(async () => {
         const res = await auth.createUserWithEmailAndPassword(crendenciais.email, crendenciais.senha);
         if (!res.user) {
@@ -105,7 +105,7 @@ export function useAuthActions() {
         return;
       }),
 
-    logout: async () =>
+    logout: () =>
       logout(async () => {
         await auth.signOut();
         return;

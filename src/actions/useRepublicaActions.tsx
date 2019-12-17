@@ -25,7 +25,7 @@ export function useRepublicaActions() {
   const [fetchRepublicaMutation] = useMutation(MUTATION_FETCH_REPUBLICA);
 
   return {
-    fetchRepublicas: async (input: ProcurarRepublicaInput) =>
+    fetchRepublicas: (input: ProcurarRepublicaInput) =>
       fetch(async () => {
         const { payload }: Payload<ProcurarRepublicaPayload> = await fetchRepublicaMutation({ variables: { input } });
 
