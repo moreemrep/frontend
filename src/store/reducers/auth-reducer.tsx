@@ -17,10 +17,16 @@ const types = {
   FORGOT_PASSWORD: 'FORGOT_PASSWORD'
 };
 
-interface Status {
+interface LoadingStatus {
   LOGIN: boolean;
   REGISTER: boolean;
   FORGOT_PASSWORD: boolean;
+}
+
+interface ErrorStatus {
+  LOGIN: string;
+  REGISTER: string;
+  FORGOT_PASSWORD: string;
 }
 
 export function authReducer(state: AuthState, action: Action): AuthState {
@@ -52,9 +58,9 @@ export function useAuthDispatch() {
   };
 }
 
-export function useAuthStore(): [AuthState, Status, Status] {
+export function useAuthStore(): [AuthState, ErrorStatus, LoadingStatus] {
   const user = useStore('auth');
-  const [error, loading] = useStatus<Status>(types);
+  const [error, loading] = useStatus(types);
 
   return [user, error, loading];
 }

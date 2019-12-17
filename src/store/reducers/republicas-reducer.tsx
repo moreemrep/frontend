@@ -15,8 +15,12 @@ const types = {
   FETCH_REPUBLICAS: 'FETCH_REPUBLICAS'
 };
 
-interface Status {
+interface LoadingStatus {
   FETCH_REPUBLICAS: boolean;
+}
+
+interface ErrorStatus {
+  FETCH_REPUBLICAS: string;
 }
 
 export function republicaReducer(state: RepublicaState, action: Action): RepublicaState {
@@ -37,7 +41,7 @@ export function useRepublicaDispatch() {
   };
 }
 
-export function useRepublicaStore(): [RepublicaState, Status, Status] {
+export function useRepublicaStore(): [RepublicaState, ErrorStatus, LoadingStatus] {
   const republicas = useStore('republicas');
   const [error, loading] = useStatus(types);
 
