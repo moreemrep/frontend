@@ -1,6 +1,6 @@
 import { useDispatch } from '../hooks/useDispatch';
 import { Action, DispatchContext } from '../StoreProvider';
-import { useStore } from '../hooks/useStore';
+import { useStore, useStatus } from '../hooks/useStore';
 import { RepublicaUser } from 'src/generated/graphql';
 import { useContext } from 'react';
 
@@ -17,7 +17,13 @@ const types = {
   FORGOT_PASSWORD: 'FORGOT_PASSWORD'
 };
 
-export function authReducer(state: AuthState, action: Action) {
+interface Status {
+  LOGIN: boolean;
+  REGISTER: boolean;
+  FORGOT_PASSWORD: boolean;
+}
+
+export function authReducer(state: AuthState, action: Action): AuthState {
   switch (action.type) {
     case 'LOGIN_SUCCESS':
     case 'REGISTER_SUCCESS':
@@ -33,6 +39,7 @@ export function authReducer(state: AuthState, action: Action) {
 
 export function useAuthDispatch() {
   const dispatch = useContext(DispatchContext);
+
   const login = useDispatch<AuthState>(types.LOGIN);
   const register = useDispatch<AuthState>(types.REGISTER);
   const forgotPassword = useDispatch(types.FORGOT_PASSWORD);
@@ -45,6 +52,9 @@ export function useAuthDispatch() {
   };
 }
 
-export function useAuthStore() {
-  return useStore('auth', types);
+export function useAuthStore(): [AuthState, Status, Status] {
+  const user = useStore('auth');
+  const [error, loading] = useStatus<Status>(types);
+
+  return [user, error, loading];
 }

@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Tipo, Republica, RepublicaPayload } from 'src/generated/graphql';
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+import React, { useState, useEffect } from 'react';
+import { Tipo, RepublicaPayload } from 'src/generated/graphql';
 import './form.css';
 import Map from 'pigeon-maps';
 import { useDimensions } from 'src/hooks/useDimensions';
@@ -7,16 +8,7 @@ import { useBreakpoints } from 'src/hooks/useBreakpoints';
 import { useRepublicaActions } from 'src/actions/useRepublicaActions';
 import { useRepublicaStore } from 'src/store/reducers/republicas-reducer';
 import Marker from 'pigeon-marker';
-import { Popover, OverlayTrigger, Overlay } from 'react-bootstrap';
-import PigeonOverlay from 'pigeon-overlay';
-
-const popover = (republica: RepublicaPayload) => (
-  <Popover id="popover-basic">
-    <Popover.Content as="h3">{republica.nome}</Popover.Content>
-    <Popover.Content>Distancia: {republica.distancia} km</Popover.Content>
-    <Popover.Content>{republica.descricao}</Popover.Content>
-  </Popover>
-);
+import { ModalRepublica } from '../Pages/LandingPage/Modal';
 
 export function FomIput() {
   const [universidade, setUniversidade] = useState('asdd');
@@ -24,18 +16,15 @@ export function FomIput() {
   const { width } = useDimensions();
   const { small } = useBreakpoints();
   const { fetchRepublicas } = useRepublicaActions();
-  const [republicas, error, loading] = useRepublicaStore();
-  const [centro, setCentro] = useState([0, 0]);
-  const triggerRef = useRef<OverlayTrigger>(null);
-
-  // useEffect(() => {}, [universidade])
+  const [{ centro, republicas }, error, loading] = useRepublicaStore();
+  const [republicaSelecionada, setRepublica] = useState<RepublicaPayload | null>();
 
   useEffect(() => {
     fetchRepublicas({
       distancia: 2000,
       tipo,
       universidade: '5df5848110318d066da24ee6'
-    }).then(centro => centro && setCentro(centro));
+    });
   }, [tipo]);
 
   function handleTipoClick(tipo: Tipo) {
@@ -49,8 +38,6 @@ export function FomIput() {
       </div>
     );
   }
-
-  console.log({ triggerRef });
 
   return (
     <div>
@@ -69,31 +56,23 @@ export function FomIput() {
         <Button tipow={Tipo.Masculina}>masculina</Button>
         <Button tipow={Tipo.Mista}>mista</Button>
       </div>
-      {universidade && tipo && (
+      {universidade && tipo && centro && (
         <Map center={[centro[1], centro[0]]} zoom={14} width={small ? width : 500} height={400}>
           <Marker anchor={[centro[1], centro[0]]} />
-          {republicas.map(republica => {
-            if (!republica.localizacao) return;
-
-            return (
-              <PigeonOverlay
-                key={republica.nome}
-                offset={[0, 0]}
-                anchor={[republica.localizacao[1], republica.localizacao[0]]}
-              >
-                <OverlayTrigger ref={triggerRef} placement="right" trigger="click" overlay={popover(republica)}>
-                  <Marker anchor={[republica.localizacao[1], republica.localizacao[0]]} />
-                </OverlayTrigger>
-              </PigeonOverlay>
-            );
-          })}
-          {republicas.map(republica => {
-            if (!republica.localizacao) return;
-
-            return <Marker key={republica.nome} anchor={[republica.localizacao[1], republica.localizacao[0]]} />;
-          })}
+          {republicas &&
+            republicas.map(
+              republica =>
+                republica.localizacao && (
+                  <Marker
+                    onClick={() => setRepublica(republica)}
+                    key={republica.nome}
+                    anchor={[republica.localizacao[1], republica.localizacao[0]]}
+                  />
+                )
+            )}
         </Map>
       )}
+      {republicaSelecionada && <ModalRepublica onHide={() => setRepublica(null)} republica={republicaSelecionada} />}
     </div>
   );
 }

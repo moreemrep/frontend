@@ -1,32 +1,45 @@
-import { useDispatch } from '../hooks/useDispatch'
-import { Action } from '../StoreProvider'
-import { useStore } from '../hooks/useStore'
-import { RepublicaPayload } from '../../generated/graphql'
+/* eslint-disable no-case-declarations */
+import { useDispatch } from '../hooks/useDispatch';
+import { Action } from '../StoreProvider';
+import { useStore, useStatus } from '../hooks/useStore';
+import { RepublicaPayload } from '../../generated/graphql';
 
-export const initialState: Array<RepublicaPayload> = []
+export interface RepublicaState {
+  republicas?: RepublicaPayload[];
+  centro?: number[];
+}
+
+export const initialState: RepublicaState = {};
 
 const types = {
   FETCH_REPUBLICAS: 'FETCH_REPUBLICAS'
+};
+
+interface Status {
+  FETCH_REPUBLICAS: boolean;
 }
 
-export function republicaReducer(state: Array<RepublicaPayload>, action: Action) {
+export function republicaReducer(state: RepublicaState, action: Action): RepublicaState {
   switch (action.type) {
     case 'FETCH_REPUBLICAS_SUCCESS':
-      return action.payload
+      return action.payload;
 
     default:
-      return state
+      return state;
   }
 }
 
 export function useRepublicaDispatch() {
-  const fetch = useDispatch<Array<RepublicaPayload>>(types.FETCH_REPUBLICAS)
+  const fetch = useDispatch<RepublicaState>(types.FETCH_REPUBLICAS);
 
   return {
     fetch
-  }
+  };
 }
 
-export function useRepublicaStore() {
-  return useStore('republicas', types)
+export function useRepublicaStore(): [RepublicaState, Status, Status] {
+  const republicas = useStore('republicas');
+  const [error, loading] = useStatus(types);
+
+  return [republicas, error, loading];
 }
