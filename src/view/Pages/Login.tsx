@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useAuthActions } from 'src/actions/useAuthActions';
 import { useAuthStore } from 'src/store/reducers/auth-reducer';
-import { Form, Button, Col, InputGroup } from 'react-bootstrap';
+import { Form, Button, Col, InputGroup, Container, Row } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import { useHistory } from 'react-router';
 import { object, string } from 'yup';
@@ -49,7 +49,7 @@ const Login: React.FC = () => {
 
   return (
     <Form className="formEnter">
-      <Form.Group as={Col} md="6" controlId="validationFormikUsername">
+      <Form.Group as={Row} md="6" controlId="validationFormikEmail">
         <InputGroup>
           <InputGroup.Prepend>
             <InputGroup.Text id="inputGroupPrepend">Email:</InputGroup.Text>
@@ -67,7 +67,7 @@ const Login: React.FC = () => {
         </InputGroup>
       </Form.Group>
 
-      <Form.Group as={Col} md="6" controlId="validationFormikSenha">
+      <Form.Group as={Row} md="6" controlId="validationFormikSenha">
         <InputGroup>
           <InputGroup.Prepend>
             <InputGroup.Text id="inputGroupPrepend">Senha:</InputGroup.Text>
@@ -85,18 +85,23 @@ const Login: React.FC = () => {
         </InputGroup>
       </Form.Group>
 
-      <Button disabled={loading.LOGIN} variant="outline-primary" size="lg" onClick={() => handleSubmit()}>
-        {loading.LOGIN ? 'Carregando' : 'Entrar'}
-      </Button>
-      <Button
-        disabled={loading.FORGOT_PASSWORD}
-        onClick={() => forgotPassword(values.email)}
-        className="BtEsqueceuSh"
-        variant="outline-secondary"
-        size="sm"
-      >
-        {loading.FORGOT_PASSWORD ? 'Carregando' : 'Esqueceu a senha'}
-      </Button>
+      <Container>
+        <Button disabled={loading.LOGIN} variant="primary" size="lg" onClick={() => handleSubmit()}>
+          {loading.LOGIN ? 'Carregando' : 'Entrar'}
+        </Button>
+      </Container>
+
+      <Container>
+        <Button
+          disabled={loading.FORGOT_PASSWORD}
+          onClick={() => forgotPassword(values.email)}
+          variant="outline-secondary"
+          size="sm"
+          className="BtEsqueceuSh"
+        >
+          {loading.FORGOT_PASSWORD ? 'Carregando' : 'Esqueceu a senha'}
+        </Button>
+      </Container>
     </Form>
   );
 };
