@@ -157,7 +157,7 @@ export const CadastrarRepublicaForm = () => {
           Descobrir coordenadas da Rep
         </a>
         {values.latitude !== 0 && values.longitude !== 0 && (
-          <Map center={[values.latitude, values.longitude]} zoom={15} width={300} height={400}>
+          <Map onClick={onMapClick} center={[values.latitude, values.longitude]} zoom={15} width={300} height={400}>
             <Marker anchor={[values.latitude, values.longitude]} />
           </Map>
         )}
