@@ -23,7 +23,7 @@ interface Status {
   FORGOT_PASSWORD: boolean;
 }
 
-export function authReducer(state: AuthState, action: Action) {
+export function authReducer(state: AuthState, action: Action): AuthState {
   switch (action.type) {
     case 'LOGIN_SUCCESS':
     case 'REGISTER_SUCCESS':

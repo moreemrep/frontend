@@ -25,23 +25,15 @@ export function useRepublicaActions() {
   const [fetchRepublicaMutation] = useMutation(MUTATION_FETCH_REPUBLICA);
 
   return {
-    fetchRepublicas: async (input: ProcurarRepublicaInput) => {
-      try {
-        fetch.request();
-
+    fetchRepublicas: async (input: ProcurarRepublicaInput) =>
+      fetch(async () => {
         const { payload }: Payload<ProcurarRepublicaPayload> = await fetchRepublicaMutation({ variables: { input } });
 
         if (payload.error) {
-          fetch.failure(payload.error);
-          return false;
+          throw new Error(payload.error);
         }
 
-        fetch.success(payload.republicas);
-        return payload.centro;
-      } catch (err) {
-        fetch.failure(err.message);
-        return false;
-      }
-    }
+        return payload;
+      })
   };
 }
