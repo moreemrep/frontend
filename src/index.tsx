@@ -15,10 +15,11 @@ import { AuthChecker } from './AuthChecker';
 ReactDOM.render(
   <RelayEnvironmentProvider environment={environment}>
     <StoreProvider store={store}>
-      <AuthChecker />
-      <Navb />
       <Background />
-      <Router />
+      <AuthChecker>
+        <Navb />
+        <Router />
+      </AuthChecker>
     </StoreProvider>
   </RelayEnvironmentProvider>,
   document.getElementById('root')
