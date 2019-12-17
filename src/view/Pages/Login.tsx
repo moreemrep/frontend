@@ -1,7 +1,7 @@
 import React from 'react';
 import { useAuthActions } from 'src/actions/useAuthActions';
 import { useAuthStore } from 'src/store/reducers/auth-reducer';
-import { Form, Button, Row, Col, InputGroup } from 'react-bootstrap';
+import { Form, Button, InputGroup } from 'react-bootstrap';
 
 const Login: React.FC = () => {
   const { login, forgotPassword } = useAuthActions();
