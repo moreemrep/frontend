@@ -11,7 +11,7 @@ interface BaseState {
 
 export interface State extends BaseState {
   republicas: RepublicaState;
-  auth: AuthState;
+  auth: AuthState | null;
 }
 
 export const initialState: State = {

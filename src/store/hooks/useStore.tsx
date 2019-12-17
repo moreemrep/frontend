@@ -36,9 +36,9 @@ function useError<T>(types: any): T {
   return error;
 }
 
-export function useStatus<T>(types: any): [T, T] {
+export function useStatus<T, K>(types: any): [T, K] {
   const error = useError<T>(types);
-  const loading = useLoading<T>(types);
+  const loading = useLoading<K>(types);
 
   return [error, loading];
 }

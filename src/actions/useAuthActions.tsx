@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { graphql } from 'babel-plugin-relay/macro';
 import { useMutation } from 'relay-hooks';
 import { useAuthDispatch } from 'src/store/reducers/auth-reducer';
@@ -106,9 +105,10 @@ export function useAuthActions() {
         return;
       }),
 
-    logout: async () => {
-      await auth.signOut();
-      logout();
-    }
+    logout: async () =>
+      logout(async () => {
+        await auth.signOut();
+        return;
+      })
   };
 }

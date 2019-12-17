@@ -13,7 +13,7 @@ const LandingPage = lazy(() => import('../view/Pages/LandingPage'));
 
 export function Router() {
   const [user] = useAuthStore();
-  const logado = !!user.email;
+  const logado = !!user;
 
   return (
     <HashRouter>

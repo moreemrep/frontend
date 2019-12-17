@@ -5,11 +5,14 @@ import { useStore, useStatus } from '../hooks/useStore';
 import { RepublicaPayload } from '../../generated/graphql';
 
 export interface RepublicaState {
-  republicas?: RepublicaPayload[];
-  centro?: number[];
+  republicas: RepublicaPayload[];
+  centro: number[];
 }
 
-export const initialState: RepublicaState = {};
+export const initialState: RepublicaState = {
+  republicas: [],
+  centro: [0, 0]
+};
 
 const types = {
   FETCH_REPUBLICAS: 'FETCH_REPUBLICAS'

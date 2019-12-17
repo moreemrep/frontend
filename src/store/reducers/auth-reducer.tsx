@@ -1,41 +1,43 @@
 import { useDispatch } from '../hooks/useDispatch';
-import { Action, DispatchContext } from '../StoreProvider';
+import { Action } from '../StoreProvider';
 import { useStore, useStatus } from '../hooks/useStore';
 import { RepublicaUser } from 'src/generated/graphql';
-import { useContext } from 'react';
 
 export interface AuthState {
-  email?: string;
-  republica?: RepublicaUser;
+  email: string;
+  republica: RepublicaUser;
 }
 
-export const initialState: AuthState = {};
+export const initialState: AuthState | null = null;
 
 const types = {
   LOGIN: 'LOGIN',
   REGISTER: 'REGISTER',
-  FORGOT_PASSWORD: 'FORGOT_PASSWORD'
+  FORGOT_PASSWORD: 'FORGOT_PASSWORD',
+  LOGOUT: 'LOGOUT'
 };
 
 interface LoadingStatus {
   LOGIN: boolean;
   REGISTER: boolean;
   FORGOT_PASSWORD: boolean;
+  LOGOUT: boolean;
 }
 
 interface ErrorStatus {
   LOGIN: string;
   REGISTER: string;
   FORGOT_PASSWORD: string;
+  LOGOUT: string;
 }
 
-export function authReducer(state: AuthState, action: Action): AuthState {
+export function authReducer(state: AuthState | null, action: Action) {
   switch (action.type) {
     case 'LOGIN_SUCCESS':
     case 'REGISTER_SUCCESS':
       return action.payload;
 
-    case 'LOGOUT':
+    case 'LOGOUT_SUCCESS':
       return initialState;
 
     default:
@@ -44,21 +46,20 @@ export function authReducer(state: AuthState, action: Action): AuthState {
 }
 
 export function useAuthDispatch() {
-  const dispatch = useContext(DispatchContext);
-
   const login = useDispatch<AuthState>(types.LOGIN);
   const register = useDispatch<AuthState>(types.REGISTER);
   const forgotPassword = useDispatch(types.FORGOT_PASSWORD);
+  const logout = useDispatch(types.LOGOUT);
 
   return {
     login,
     register,
     forgotPassword,
-    logout: () => dispatch({ type: 'LOGOUT' })
+    logout
   };
 }
 
-export function useAuthStore(): [AuthState, ErrorStatus, LoadingStatus] {
+export function useAuthStore(): [AuthState | null, ErrorStatus, LoadingStatus] {
   const user = useStore('auth');
   const [error, loading] = useStatus(types);
 

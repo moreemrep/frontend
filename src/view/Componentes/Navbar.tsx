@@ -5,10 +5,10 @@ import { useAuthStore } from 'src/store/reducers/auth-reducer';
 import { useAuthActions } from 'src/actions/useAuthActions';
 
 export function Navb() {
-  const [auth] = useAuthStore();
+  const [user] = useAuthStore();
   const { logout } = useAuthActions();
 
-  const logado = !!auth.email;
+  const logado = !!user;
 
   return (
     <Navbar className="Navstyle" collapseOnSelect expand="lg" bg="transparent" variant="dark">
