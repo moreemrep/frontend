@@ -85,21 +85,18 @@ const Login: React.FC = () => {
         </InputGroup>
       </Form.Group>
 
-      {!loading.LOGIN && (
-        <Button variant="outline-primary" size="lg" onClick={() => handleSubmit()}>
-          Entrar
-        </Button>
-      )}
-      {!loading.FORGOT_PASSWORD && (
-        <Button
-          onClick={() => forgotPassword(values.email)}
-          className="BtEsqueceuSh"
-          variant="outline-secondary"
-          size="sm"
-        >
-          Esqueceu a senha
-        </Button>
-      )}
+      <Button disabled={loading.LOGIN} variant="outline-primary" size="lg" onClick={() => handleSubmit()}>
+        {loading.LOGIN ? 'Carregando' : 'Entrar'}
+      </Button>
+      <Button
+        disabled={loading.FORGOT_PASSWORD}
+        onClick={() => forgotPassword(values.email)}
+        className="BtEsqueceuSh"
+        variant="outline-secondary"
+        size="sm"
+      >
+        {loading.FORGOT_PASSWORD ? 'Carregando' : 'Esqueceu a senha'}
+      </Button>
     </Form>
   );
 };
