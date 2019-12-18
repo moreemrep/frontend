@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import { useAuthActions } from 'src/actions/useAuthActions';
 import { useAuthStore } from 'src/store/reducers/auth-reducer';
-import { Form, Button, Col, InputGroup, Container, Row } from 'react-bootstrap';
+import { Form, Button, InputGroup, Row } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import { useHistory } from 'react-router';
 import { object, string } from 'yup';
-import { StyleSheet, css, CSSProperties, StyleSheetStatic, StyleDeclaration } from 'aphrodite';
+import { StyleSheet, css } from 'aphrodite';
 import { useDimensions } from 'src/hooks/useDimensions';
 import { useBreakpoints } from 'src/hooks/useBreakpoints';
 
@@ -29,7 +29,8 @@ const Login: React.FC = () => {
   const { height, width } = useDimensions();
   const { medium, large } = useBreakpoints();
 
-  const Styles = {
+  // pequeno por padrão
+  const responsive = {
     inputContainer: {
       width: width * 0.9
     },
@@ -41,15 +42,15 @@ const Login: React.FC = () => {
   };
 
   if (medium) {
-    Styles.inputContainer.width = width * 0.7;
-    Styles.input.fontSize = 25;
+    responsive.inputContainer.width = width * 0.7;
+    responsive.input.fontSize = 25;
   } else if (large) {
-    Styles.inputContainer.width = width * 0.6;
-    Styles.input.fontSize = 30;
+    responsive.inputContainer.width = width * 0.6;
+    responsive.input.fontSize = 30;
   }
 
   const responsiveStyles = StyleSheet.create({
-    ...Styles,
+    ...responsive,
     container: {
       display: 'flex',
       justifyContent: 'center',
@@ -104,6 +105,9 @@ const Login: React.FC = () => {
     }
   };
 
+  const errorEmail = () => touched.email && !!errors.email;
+  const errorSenha = () => touched.senha && !!errors.senha;
+
   return (
     <Form className={css(responsiveStyles.container)}>
       <Form.Group as={Row} md="6" controlId="validationFormikEmail">
@@ -111,12 +115,12 @@ const Login: React.FC = () => {
           <Form.Control
             type="text"
             name="email"
-            className={css(styles.input, responsiveStyles.input)}
+            className={css(styles.input, responsiveStyles.input, errorEmail() && styles.error)}
             onChange={handleChange}
             onBlur={handleBlur}
             placeholder="Email"
             aria-describedby="inputGroupPrepend"
-            isInvalid={touched.email && !!errors.email}
+            isInvalid={errorEmail()}
           />
           <Form.Control.Feedback type="invalid">{errors.email}</Form.Control.Feedback>
         </InputGroup>
@@ -127,12 +131,12 @@ const Login: React.FC = () => {
           <Form.Control
             type="password"
             name="senha"
-            className={css(styles.input, responsiveStyles.input)}
+            className={css(styles.input, responsiveStyles.input, errorSenha() && styles.error)}
             onChange={handleChange}
             onBlur={handleBlur}
             placeholder="Senha"
             aria-describedby="inputGroupPrepend"
-            isInvalid={touched.senha && !!errors.senha}
+            isInvalid={errorSenha()}
           />
           <Form.Control.Feedback type="invalid">{errors.senha}</Form.Control.Feedback>
         </InputGroup>
