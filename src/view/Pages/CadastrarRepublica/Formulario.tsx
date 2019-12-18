@@ -7,7 +7,7 @@ import { object, string } from 'yup';
 import Map, { MapClickEvent } from 'pigeon-maps';
 import Marker from 'pigeon-marker';
 import { usePosition } from 'src/hooks/device/usePosition';
-import { Form, Col, Row, Button, Container } from 'react-bootstrap';
+import { Form, Col, Row, Button, Container, InputGroup } from 'react-bootstrap';
 import { useHistory } from 'react-router';
 import { useGeocode } from 'src/services/useGeocode';
 import useDebounce from 'src/hooks/useDebounce';
@@ -89,6 +89,7 @@ export const CadastrarRepublicaForm = () => {
     <div>
       {error.REGISTER}
       {loading.REGISTER && 'loading'}
+      
       <Form className="FormStyle" onSubmit={handleSubmit}>
         <Form.Row>
           <Form.Group as={Col} controlId="NomeRep">
@@ -115,7 +116,7 @@ export const CadastrarRepublicaForm = () => {
 
           <Form.Group as={Col} controlId="Senha">
             <Form.Label>Senha</Form.Label>
-            <Form.Control name="senha" onChange={handleChange} type="password" placeholder="Minimo 6 digitos" />
+            <Form.Control name="senha" onChange={handleChange} type="password" placeholder="Mínimo 6 digitos" />
           </Form.Group>
         </Form.Row>
 
@@ -125,6 +126,12 @@ export const CadastrarRepublicaForm = () => {
             <Form.Control name="endereco" onChange={handleChange} placeholder="Rua:..., nº" />
           </Form.Group>
         </Form.Row> */}
+          <Row>
+          <Form.Group as={Col} controlId="Contato" className="telStyle">
+            <Form.Label>Contato</Form.Label>
+            <Form.Control name="contato" onChange={handleChange} type="text" placeholder="(DDD) + Número" />
+          </Form.Group>
+          </Row>
 
         <Form className="locStyle">
           <Form.Label>Coordenadas</Form.Label>
@@ -148,6 +155,7 @@ export const CadastrarRepublicaForm = () => {
               />
             </Form.Group>
           </Form.Row>
+
           <Container>
             <Row>
               <Button size="sm" variant="outline-secondary" onClick={toggleGps}>

@@ -47,6 +47,11 @@ html, body {
   }
 
   .BtCadastrar{
-      margin-top: 5%;
+      margin-top: 1%;
       padding: 2%;
+  }
+
+  .telStyle{
+      margin-right: 15%;
+      margin-left: 15%;
   }
