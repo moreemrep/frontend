@@ -61,3 +61,8 @@ html, body {
         padding-left: 0;
       }
   }
+
+  .ajeitaLista{
+    margin-left: 35%;
+    margin-right: 35%;
+  }

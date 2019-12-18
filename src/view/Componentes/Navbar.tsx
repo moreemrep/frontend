@@ -19,7 +19,7 @@ export function Navb() {
           <Nav.Link href="/#/blog">Blog</Nav.Link>
           <NavDropdown title="Informações" id="collasible-nav-dropdown">
             <NavDropdown.Item href="/#/informacoes#sobre">Sobre nós</NavDropdown.Item>
-            <NavDropdown.Item href="/#/informacoes#motivacao">Motivação</NavDropdown.Item>
+            <NavDropdown.Item href="/#/informacoes#motivacao">Cadastrar Universidade</NavDropdown.Item>
             <NavDropdown.Divider />
             <NavDropdown.Item href="/#/informacoes#colaborar">Como colaborar</NavDropdown.Item>
           </NavDropdown>
