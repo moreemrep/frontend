@@ -53,3 +53,11 @@ html, body {
   .CheckBoxStyle{
       margin: 7%;
   }
+
+  @media screen and (max-width: 400px){
+      .FormStyle{
+        padding-top: 5%;
+        padding-right: 0;
+        padding-left: 0;
+      }
+  }
