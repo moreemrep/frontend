@@ -25,15 +25,28 @@ html, body {
 }
 
 .formEnter{
-    margin-top: 50%;
-    margin: 10%;
+    margin-top: 10%;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    padding-right: 30%;
+    padding-left: 30%;
 }
 
-.BtCadastrar{
-    padding: 1%;
-    width: 12%;
+.BtEsqueceuSh{
+    margin-top: 2%;
   }
 
-.BtEsqueceuSh{
-      margin-left: 10%;
+  .RowCadastrar{
+      align-items: center;
+      justify-content: center;
+  }
+
+  .Alink{
+      padding: 3%;
+  }
+
+  .BtCadastrar{
+      margin-top: 5%;
+      padding: 2%;
   }

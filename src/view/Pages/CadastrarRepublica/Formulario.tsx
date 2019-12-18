@@ -7,7 +7,7 @@ import { object, string } from 'yup';
 import Map, { MapClickEvent } from 'pigeon-maps';
 import Marker from 'pigeon-marker';
 import { usePosition } from 'src/hooks/device/usePosition';
-import { Form, Col, Button } from 'react-bootstrap';
+import { Form, Col, Row, Button, Container } from 'react-bootstrap';
 import { useHistory } from 'react-router';
 import { useGeocode } from 'src/services/useGeocode';
 import useDebounce from 'src/hooks/useDebounce';
@@ -119,43 +119,55 @@ export const CadastrarRepublicaForm = () => {
           </Form.Group>
         </Form.Row>
 
-        <Form.Row>
+        {/* <Form.Row>
           <Form.Group as={Col} controlId="EnderecoRep">
             <Form.Label>Endereço{loadingGeo && '(carregando)'}</Form.Label>
             <Form.Control name="endereco" onChange={handleChange} placeholder="Rua:..., nº" />
           </Form.Group>
-        </Form.Row>
+        </Form.Row> */}
 
-        <Button className="BtCadastrar" variant="outline-primary" type="submit">
-          Cadastrar
-        </Button>
-      </Form>
-      <button onClick={toggleGps}>{gps ? 'desligar' : 'pegar do gps'}</button>
-      <Form className="locStyle">
-        <Form.Label>Coordenadas</Form.Label>
-        <Form.Row>
-          <Form.Group as={Col}>
-            <Form.Control
-              value={'' + values.latitude}
-              name="latitude"
-              onChange={handleChange}
-              type="Text"
-              placeholder="Latitude"
-            />
-          </Form.Group>
-          <Form.Group as={Col}>
-            <Form.Control
-              value={'' + values.longitude}
-              name="longitude"
-              onChange={handleChange}
-              type="Text"
-              placeholder="Longitude"
-            />
-          </Form.Group>
-        </Form.Row>
-        <a href="https://justgetflux.com/map.html" target="blank">
-          Descobrir coordenadas da Rep
-        </a>
+        <Form className="locStyle">
+          <Form.Label>Coordenadas</Form.Label>
+          <Form.Row>
+            <Form.Group as={Col}>
+              <Form.Control
+                value={'' + values.latitude}
+                name="latitude"
+                onChange={handleChange}
+                type="Text"
+                placeholder="Latitude"
+              />
+            </Form.Group>
+            <Form.Group as={Col}>
+              <Form.Control
+                value={'' + values.longitude}
+                name="longitude"
+                onChange={handleChange}
+                type="Text"
+                placeholder="Longitude"
+              />
+            </Form.Group>
+          </Form.Row>
+          <Container>
+            <Row>
+              <Button size="sm" variant="outline-secondary" onClick={toggleGps}>
+                {gps ? 'desligar' : 'Pegar do GPS'}
+              </Button>
+            </Row>
+            <Row className="Alink">
+              <a href="https://justgetflux.com/map.html" target="blank">
+                Descobrir
+              </a>
+            </Row>
+          </Container>
+        </Form>
+        <Container>
+          <Row className="RowCadastrar">
+            <Button className="BtCadastrar" variant="primary" type="submit">
+              Cadastrar
+            </Button>
+          </Row>
+        </Container>
         {values.latitude !== 0 && values.longitude !== 0 && (
           <Map onClick={onMapClick} center={[values.latitude, values.longitude]} zoom={15} width={300} height={400}>
             <Marker anchor={[values.latitude, values.longitude]} />
