@@ -27,8 +27,7 @@ export const CadastrarRepublicaForm = () => {
       latitude: 0,
       email: '',
       senha: '',
-      cidade: '',
-      estado: ''
+      descricao: ''
     },
     validationSchema: object().shape({
       nome: string().required('obrigatório')
@@ -89,7 +88,7 @@ export const CadastrarRepublicaForm = () => {
     <div>
       {error.REGISTER}
       {loading.REGISTER && 'loading'}
-      
+
       <Form className="FormStyle" onSubmit={handleSubmit}>
         <Form.Row>
           <Form.Group as={Col} controlId="NomeRep">
@@ -126,12 +125,36 @@ export const CadastrarRepublicaForm = () => {
             <Form.Control name="endereco" onChange={handleChange} placeholder="Rua:..., nº" />
           </Form.Group>
         </Form.Row> */}
-          <Row>
+        {/* <Row>
           <Form.Group as={Col} controlId="Contato" className="telStyle">
             <Form.Label>Contato</Form.Label>
             <Form.Control name="contato" onChange={handleChange} type="text" placeholder="(DDD) + Número" />
           </Form.Group>
-          </Row>
+          </Row> */}
+
+        <Row>
+          <Col>
+            <Form.Group as={Col} className="telStyle">
+              <Form.Label>Descrição</Form.Label>
+              <Form.Control
+                as="textarea"
+                rows="2"
+                maxlength="200"
+                minlength="10"
+                onChange={handleChange}
+                type="text"
+                name="descricao"
+                placeholder="Descrição + Contatos"
+              />
+            </Form.Group>
+          </Col>
+          <Col>
+            <Form.Group controlId="formBasicCheckbox" className="CheckBoxStyle">
+              <Form.Check type="checkbox" label="Aperecer no Mapa" name="mostrarNoMapa" onChange={handleChange} />
+              <Form.Check type="checkbox" label="Tem vaga disponível" name="disponivel" onChange={handleChange} />
+            </Form.Group>
+          </Col>
+        </Row>
 
         <Form className="locStyle">
           <Form.Label>Coordenadas</Form.Label>
@@ -171,7 +194,7 @@ export const CadastrarRepublicaForm = () => {
         </Form>
         <Container>
           <Row className="RowCadastrar">
-            <Button className="BtCadastrar" variant="primary" type="submit">
+            <Button variant="primary" type="submit">
               Cadastrar
             </Button>
           </Row>
