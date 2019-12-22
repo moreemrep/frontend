@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash c2a18b622aa87b07a1db269666b33c53
+ * @relayHash b109fc975c32f288dd837fddad7b3a4c
  */
 
 /* eslint-disable */
@@ -13,11 +13,15 @@ export type Tipo = "FEMININA" | "MASCULINA" | "MISTA" | "%future added value";
 export type CriarRepublicaInput = {|
   nome: string,
   endereco: string,
-  localizacao: $ReadOnlyArray<number>,
+  localizacao: CoordenadasInput,
   tipo: Tipo,
   descricao: string,
   disponivel: boolean,
   mostrarNoMapa: boolean,
+|};
+export type CoordenadasInput = {|
+  latitude: number,
+  longitude: number,
 |};
 export type useAuthActionsRegisterMutationVariables = {|
   input: CriarRepublicaInput
@@ -27,12 +31,15 @@ export type useAuthActionsRegisterMutationResponse = {|
     +success: boolean,
     +error: ?string,
     +republica: ?{|
-      +nome: ?string,
-      +disponivel: ?boolean,
-      +endereco: ?string,
-      +localizacao: ?$ReadOnlyArray<?number>,
-      +mostrarNoMapa: ?boolean,
-      +tipo: ?Tipo,
+      +nome: string,
+      +disponivel: boolean,
+      +endereco: string,
+      +localizacao: {|
+        +latitude: number,
+        +longitude: number,
+      |},
+      +mostrarNoMapa: boolean,
+      +tipo: Tipo,
     |},
   |}
 |};
@@ -54,7 +61,10 @@ mutation useAuthActionsRegisterMutation(
       nome
       disponivel
       endereco
-      localizacao
+      localizacao {
+        latitude
+        longitude
+      }
       mostrarNoMapa
       tipo
       id
@@ -115,11 +125,29 @@ v6 = {
   "storageKey": null
 },
 v7 = {
-  "kind": "ScalarField",
+  "kind": "LinkedField",
   "alias": null,
   "name": "localizacao",
+  "storageKey": null,
   "args": null,
-  "storageKey": null
+  "concreteType": "Coordenadas",
+  "plural": false,
+  "selections": [
+    {
+      "kind": "ScalarField",
+      "alias": null,
+      "name": "latitude",
+      "args": null,
+      "storageKey": null
+    },
+    {
+      "kind": "ScalarField",
+      "alias": null,
+      "name": "longitude",
+      "args": null,
+      "storageKey": null
+    }
+  ]
 },
 v8 = {
   "kind": "ScalarField",
@@ -224,11 +252,11 @@ return {
     "operationKind": "mutation",
     "name": "useAuthActionsRegisterMutation",
     "id": null,
-    "text": "mutation useAuthActionsRegisterMutation(\n  $input: CriarRepublicaInput!\n) {\n  payload: criarRepublica(input: $input) {\n    success\n    error\n    republica {\n      nome\n      disponivel\n      endereco\n      localizacao\n      mostrarNoMapa\n      tipo\n      id\n    }\n  }\n}\n",
+    "text": "mutation useAuthActionsRegisterMutation(\n  $input: CriarRepublicaInput!\n) {\n  payload: criarRepublica(input: $input) {\n    success\n    error\n    republica {\n      nome\n      disponivel\n      endereco\n      localizacao {\n        latitude\n        longitude\n      }\n      mostrarNoMapa\n      tipo\n      id\n    }\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '17c5e4ed917d0446dec17feadae2e498';
+(node/*: any*/).hash = '0f2d89314729e611d9244f39a040907e';
 module.exports = node;

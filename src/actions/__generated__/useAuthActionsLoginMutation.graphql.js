@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash e63e60d577fbbef0fa0283282c760250
+ * @relayHash fe3e0caa2b76f2149352ac6f5127ae0e
  */
 
 /* eslint-disable */
@@ -16,12 +16,16 @@ export type useAuthActionsLoginMutationResponse = {|
     +success: boolean,
     +error: ?string,
     +republica: {|
-      +nome: ?string,
-      +disponivel: ?boolean,
-      +endereco: ?string,
-      +localizacao: ?$ReadOnlyArray<?number>,
-      +mostrarNoMapa: ?boolean,
-      +tipo: ?Tipo,
+      +nome: string,
+      +disponivel: boolean,
+      +endereco: string,
+      +descricao: string,
+      +localizacao: {|
+        +latitude: number,
+        +longitude: number,
+      |},
+      +mostrarNoMapa: boolean,
+      +tipo: Tipo,
     |},
   |}
 |};
@@ -41,7 +45,11 @@ mutation useAuthActionsLoginMutation {
       nome
       disponivel
       endereco
-      localizacao
+      descricao
+      localizacao {
+        latitude
+        longitude
+      }
       mostrarNoMapa
       tipo
       id
@@ -89,18 +97,43 @@ v4 = {
 v5 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "localizacao",
+  "name": "descricao",
   "args": null,
   "storageKey": null
 },
 v6 = {
+  "kind": "LinkedField",
+  "alias": null,
+  "name": "localizacao",
+  "storageKey": null,
+  "args": null,
+  "concreteType": "Coordenadas",
+  "plural": false,
+  "selections": [
+    {
+      "kind": "ScalarField",
+      "alias": null,
+      "name": "latitude",
+      "args": null,
+      "storageKey": null
+    },
+    {
+      "kind": "ScalarField",
+      "alias": null,
+      "name": "longitude",
+      "args": null,
+      "storageKey": null
+    }
+  ]
+},
+v7 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "mostrarNoMapa",
   "args": null,
   "storageKey": null
 },
-v7 = {
+v8 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "tipo",
@@ -141,7 +174,8 @@ return {
               (v4/*: any*/),
               (v5/*: any*/),
               (v6/*: any*/),
-              (v7/*: any*/)
+              (v7/*: any*/),
+              (v8/*: any*/)
             ]
           }
         ]
@@ -179,6 +213,7 @@ return {
               (v5/*: any*/),
               (v6/*: any*/),
               (v7/*: any*/),
+              (v8/*: any*/),
               {
                 "kind": "ScalarField",
                 "alias": null,
@@ -196,11 +231,11 @@ return {
     "operationKind": "mutation",
     "name": "useAuthActionsLoginMutation",
     "id": null,
-    "text": "mutation useAuthActionsLoginMutation {\n  payload: login {\n    success\n    error\n    republica {\n      nome\n      disponivel\n      endereco\n      localizacao\n      mostrarNoMapa\n      tipo\n      id\n    }\n  }\n}\n",
+    "text": "mutation useAuthActionsLoginMutation {\n  payload: login {\n    success\n    error\n    republica {\n      nome\n      disponivel\n      endereco\n      descricao\n      localizacao {\n        latitude\n        longitude\n      }\n      mostrarNoMapa\n      tipo\n      id\n    }\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '150152b59f99a52869835e3fc9b51dcc';
+(node/*: any*/).hash = 'bdfa38ee9d9f946803ddc62e2071f4e6';
 module.exports = node;

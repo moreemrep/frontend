@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash da601b74ef3d47b71aee1b330a530545
+ * @relayHash aa8cebec4a1c23d30b7f5519011378a9
  */
 
 /* eslint-disable */
@@ -25,10 +25,16 @@ export type useRepublicaActionsProcurarRepublicaMutationResponse = {|
     +republicas: $ReadOnlyArray<{|
       +nome: string,
       +distancia: number,
-      +descricao: ?string,
-      +localizacao: ?$ReadOnlyArray<number>,
+      +descricao: string,
+      +localizacao: ?{|
+        +latitude: number,
+        +longitude: number,
+      |},
     |}>,
-    +centro: $ReadOnlyArray<number>,
+    +centro: {|
+      +latitude: number,
+      +longitude: number,
+    |},
   |}
 |};
 export type useRepublicaActionsProcurarRepublicaMutation = {|
@@ -49,9 +55,15 @@ mutation useRepublicaActionsProcurarRepublicaMutation(
       nome
       distancia
       descricao
-      localizacao
+      localizacao {
+        latitude
+        longitude
+      }
     }
-    centro
+    centro {
+      latitude
+      longitude
+    }
   }
 }
 */
@@ -66,6 +78,22 @@ var v0 = [
   }
 ],
 v1 = [
+  {
+    "kind": "ScalarField",
+    "alias": null,
+    "name": "latitude",
+    "args": null,
+    "storageKey": null
+  },
+  {
+    "kind": "ScalarField",
+    "alias": null,
+    "name": "longitude",
+    "args": null,
+    "storageKey": null
+  }
+],
+v2 = [
   {
     "kind": "LinkedField",
     "alias": "payload",
@@ -126,20 +154,26 @@ v1 = [
             "storageKey": null
           },
           {
-            "kind": "ScalarField",
+            "kind": "LinkedField",
             "alias": null,
             "name": "localizacao",
+            "storageKey": null,
             "args": null,
-            "storageKey": null
+            "concreteType": "Coordenadas",
+            "plural": false,
+            "selections": (v1/*: any*/)
           }
         ]
       },
       {
-        "kind": "ScalarField",
+        "kind": "LinkedField",
         "alias": null,
         "name": "centro",
+        "storageKey": null,
         "args": null,
-        "storageKey": null
+        "concreteType": "Coordenadas",
+        "plural": false,
+        "selections": (v1/*: any*/)
       }
     ]
   }
@@ -152,23 +186,23 @@ return {
     "type": "Mutation",
     "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
-    "selections": (v1/*: any*/)
+    "selections": (v2/*: any*/)
   },
   "operation": {
     "kind": "Operation",
     "name": "useRepublicaActionsProcurarRepublicaMutation",
     "argumentDefinitions": (v0/*: any*/),
-    "selections": (v1/*: any*/)
+    "selections": (v2/*: any*/)
   },
   "params": {
     "operationKind": "mutation",
     "name": "useRepublicaActionsProcurarRepublicaMutation",
     "id": null,
-    "text": "mutation useRepublicaActionsProcurarRepublicaMutation(\n  $input: ProcurarRepublicaInput!\n) {\n  payload: procurarRepublica(input: $input) {\n    success\n    error\n    republicas {\n      nome\n      distancia\n      descricao\n      localizacao\n    }\n    centro\n  }\n}\n",
+    "text": "mutation useRepublicaActionsProcurarRepublicaMutation(\n  $input: ProcurarRepublicaInput!\n) {\n  payload: procurarRepublica(input: $input) {\n    success\n    error\n    republicas {\n      nome\n      distancia\n      descricao\n      localizacao {\n        latitude\n        longitude\n      }\n    }\n    centro {\n      latitude\n      longitude\n    }\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '7178588fb73aba0345f64c5837e016d0';
+(node/*: any*/).hash = 'f477a5b0dd87a77616ca1f801ebb84af';
 module.exports = node;

@@ -14,7 +14,10 @@ const MUTATION_REGISTER = graphql`
         nome
         disponivel
         endereco
-        localizacao
+        localizacao {
+          latitude
+          longitude
+        }
         mostrarNoMapa
         tipo
       }
@@ -31,7 +34,11 @@ const MUTATION_LOGIN = graphql`
         nome
         disponivel
         endereco
-        localizacao
+        descricao
+        localizacao {
+          latitude
+          longitude
+        }
         mostrarNoMapa
         tipo
       }
@@ -70,7 +77,7 @@ export function useAuthActions() {
     loginFirebase: (email: string) =>
       login(async () => {
         const { payload }: Payload<LoginPayload> = await loginMutation({ variables: {} });
-
+        console.log({ payload });
         if (payload.error) throw new Error(payload.error);
 
         return {

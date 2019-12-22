@@ -16,12 +16,12 @@ type LoginPayload {
 type RepublicaPayload { 
     distancia: Float!
     nome: String!
-    descricao: String
-    localizacao: [Float!]
+    descricao: String!
+    localizacao: Coordenadas
 }
 type ProcurarRepublicaPayload { 
     republicas: [RepublicaPayload!]!
-    centro: [Float!]!
+    centro: Coordenadas!
     success: Boolean!
     error: String
 }
@@ -29,6 +29,10 @@ type ProcurarUniversidadePayload {
     universidades: [Universidade!]!
     success: Boolean!
     error: String
+}
+type Coordenadas { 
+    latitude: Float!
+    longitude: Float!
 }
 type Republica implements Node { 
     id: ID!
@@ -38,18 +42,19 @@ type Republica implements Node {
 }
 type RepublicaUser implements Node { 
     id: ID!
-    nome: String
-    endereco: String
-    localizacao: [Float]
-    tipo: Tipo
-    mostrarNoMapa: Boolean
-    disponivel: Boolean
+    nome: String!
+    endereco: String!
+    localizacao: Coordenadas!
+    tipo: Tipo!
+    mostrarNoMapa: Boolean!
+    disponivel: Boolean!
+    descricao: String!
 }
 type Universidade implements Node { 
     id: ID!
-    nome: String
-    sigla: String
-    localizacao: [Float]
+    nome: String!
+    sigla: String!
+    localizacao: Coordenadas!
 }
 type PageInfo { 
     hasNextPage: Boolean!
@@ -67,7 +72,7 @@ type Query {
 type Mutation { 
     criarUniversidade(input: CriarUniversidadeInput!): ResponsePayload!
     criarRepublica(input: CriarRepublicaInput!): CriarRepublicaPayload!
-    editarRepublica(input: EditarRepublicaInput!): ResponsePayload!
+    editarRepublica(input: EditarRepublicaInput!): ResponsePayload! @auth
     login: LoginPayload! @auth
     procurarRepublica(input: ProcurarRepublicaInput!): ProcurarRepublicaPayload!
     procurarUniversidade(input: ProcurarUniversidadeInput!): ProcurarUniversidadePayload!
@@ -75,12 +80,12 @@ type Mutation {
 input CriarUniversidadeInput { 
     nome: String!
     sigla: String!
-    localizacao: [Float!]!
+    localizacao: CoordenadasInput!
 }
 input CriarRepublicaInput { 
     nome: String!
     endereco: String!
-    localizacao: [Float!]!
+    localizacao: CoordenadasInput!
     tipo: Tipo!
     descricao: String!
     disponivel: Boolean!
@@ -89,7 +94,7 @@ input CriarRepublicaInput {
 input EditarRepublicaInput { 
     nome: String
     endereco: String
-    localizacao: [Float!]!
+    localizacao: CoordenadasInput!
     tipo: Tipo
     descricao: String
     disponivel: Boolean
@@ -102,6 +107,10 @@ input ProcurarRepublicaInput {
 input ProcurarUniversidadeInput { 
     nome: String
     sigla: String
+}
+input CoordenadasInput { 
+    latitude: Float!
+    longitude: Float!
 }
 enum Tipo { 
     FEMININA

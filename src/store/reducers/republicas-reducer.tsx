@@ -2,16 +2,19 @@
 import { useDispatch } from '../hooks/useDispatch';
 import { Action } from '../StoreProvider';
 import { useStore, useStatus } from '../hooks/useStore';
-import { RepublicaPayload } from '../../generated/graphql';
+import { RepublicaPayload, Coordenadas } from '../../generated/graphql';
 
 export interface RepublicaState {
   republicas: RepublicaPayload[];
-  centro: number[];
+  centro: Coordenadas;
 }
 
 export const initialState: RepublicaState = {
   republicas: [],
-  centro: [0, 0]
+  centro: {
+    latitude: 0,
+    longitude: 0
+  }
 };
 
 const types = {

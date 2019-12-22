@@ -10,10 +10,21 @@ export type Scalars = {
 };
 
 
+export type Coordenadas = {
+   __typename?: 'Coordenadas',
+  latitude: Scalars['Float'],
+  longitude: Scalars['Float'],
+};
+
+export type CoordenadasInput = {
+  latitude: Scalars['Float'],
+  longitude: Scalars['Float'],
+};
+
 export type CriarRepublicaInput = {
   nome: Scalars['String'],
   endereco: Scalars['String'],
-  localizacao: Array<Scalars['Float']>,
+  localizacao: CoordenadasInput,
   tipo: Tipo,
   descricao: Scalars['String'],
   disponivel: Scalars['Boolean'],
@@ -30,14 +41,14 @@ export type CriarRepublicaPayload = {
 export type CriarUniversidadeInput = {
   nome: Scalars['String'],
   sigla: Scalars['String'],
-  localizacao: Array<Scalars['Float']>,
+  localizacao: CoordenadasInput,
 };
 
 
 export type EditarRepublicaInput = {
   nome?: Maybe<Scalars['String']>,
   endereco?: Maybe<Scalars['String']>,
-  localizacao: Array<Scalars['Float']>,
+  localizacao: CoordenadasInput,
   tipo?: Maybe<Tipo>,
   descricao?: Maybe<Scalars['String']>,
   disponivel?: Maybe<Scalars['Boolean']>,
@@ -106,7 +117,7 @@ export type ProcurarRepublicaInput = {
 export type ProcurarRepublicaPayload = {
    __typename?: 'ProcurarRepublicaPayload',
   republicas: Array<RepublicaPayload>,
-  centro: Array<Scalars['Float']>,
+  centro: Coordenadas,
   success: Scalars['Boolean'],
   error?: Maybe<Scalars['String']>,
 };
@@ -145,19 +156,20 @@ export type RepublicaPayload = {
    __typename?: 'RepublicaPayload',
   distancia: Scalars['Float'],
   nome: Scalars['String'],
-  descricao?: Maybe<Scalars['String']>,
-  localizacao?: Maybe<Array<Scalars['Float']>>,
+  descricao: Scalars['String'],
+  localizacao?: Maybe<Coordenadas>,
 };
 
 export type RepublicaUser = Node & {
    __typename?: 'RepublicaUser',
   id: Scalars['ID'],
-  nome?: Maybe<Scalars['String']>,
-  endereco?: Maybe<Scalars['String']>,
-  localizacao?: Maybe<Array<Maybe<Scalars['Float']>>>,
-  tipo?: Maybe<Tipo>,
-  mostrarNoMapa?: Maybe<Scalars['Boolean']>,
-  disponivel?: Maybe<Scalars['Boolean']>,
+  nome: Scalars['String'],
+  endereco: Scalars['String'],
+  localizacao: Coordenadas,
+  tipo: Tipo,
+  mostrarNoMapa: Scalars['Boolean'],
+  disponivel: Scalars['Boolean'],
+  descricao: Scalars['String'],
 };
 
 export type ResponsePayload = {
@@ -175,7 +187,7 @@ export enum Tipo {
 export type Universidade = Node & {
    __typename?: 'Universidade',
   id: Scalars['ID'],
-  nome?: Maybe<Scalars['String']>,
-  sigla?: Maybe<Scalars['String']>,
-  localizacao?: Maybe<Array<Maybe<Scalars['Float']>>>,
+  nome: Scalars['String'],
+  sigla: Scalars['String'],
+  localizacao: Coordenadas,
 };

@@ -13,9 +13,15 @@ const MUTATION_FETCH_REPUBLICA = graphql`
         nome
         distancia
         descricao
-        localizacao
+        localizacao {
+          latitude
+          longitude
+        }
       }
-      centro
+      centro {
+        latitude
+        longitude
+      }
     }
   }
 `;
