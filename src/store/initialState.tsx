@@ -3,20 +3,21 @@ import { initialState as error } from './reducers/error-reducer';
 
 import { initialState as auth, AuthState } from './reducers/auth-reducer';
 import { initialState as republicas, RepublicaState } from './reducers/republicas-reducer';
+import { initialState as universidades } from './reducers/universidades-reducer';
+import { Universidade } from 'src/generated/graphql';
 
-interface BaseState {
+export interface State {
   loading: any;
   error: any;
-}
-
-export interface State extends BaseState {
   republicas: RepublicaState;
   auth: AuthState | null;
+  universidades: Universidade[];
 }
 
 export const initialState: State = {
   loading,
   error,
   republicas,
+  universidades,
   auth
 };
