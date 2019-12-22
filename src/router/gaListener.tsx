@@ -1,25 +1,24 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable no-undef */
-import { useEffect } from 'react'
-import ReactGA from 'react-ga'
-import { withRouter } from 'react-router-dom'
+import React, { useEffect } from 'react';
+import ReactGA from 'react-ga';
+import { useHistory } from 'react-router-dom';
+import { Location } from 'history';
 
-ReactGA.initialize(process.env.REACT_APP_GOOGLE_ANALYTICS!)
+// eslint-disable-next-line no-undef
+ReactGA.initialize(process.env.REACT_APP_GOOGLE_ANALYTICS!);
 
-function GAListener({ children, history }: any) {
-  const sendPageView = (location: any) => {
-    ReactGA.set({ page: location.pathname })
-    ReactGA.pageview(location.pathname)
-  }
+export const GAListener: React.FC = ({ children }) => {
+  const history = useHistory();
+
+  const sendPageView = (location: Location) => {
+    ReactGA.set({ page: location.pathname });
+    ReactGA.pageview(location.pathname);
+  };
 
   useEffect(() => {
-    sendPageView(history.location)
-    history.listen(sendPageView)
-  }, [])
+    sendPageView(history.location);
+    return history.listen(sendPageView);
+  }, []);
 
-  return children
-}
-
-const gaListener = withRouter(GAListener)
-
-export { gaListener as GAListener }
+  return <React.Fragment>{children}</React.Fragment>;
+};
