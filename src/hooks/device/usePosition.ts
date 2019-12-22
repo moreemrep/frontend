@@ -1,12 +1,16 @@
 import { useState, useEffect } from 'react';
 
-export const usePosition = (status: boolean) => {
-  const [position, setPosition] = useState({ latitude: 0, longitude: 0 });
+export const usePosition = (cb: (pos: Coordinates) => void): [() => void, boolean, string] => {
   const [error, setError] = useState('');
+  const [status, setStatus] = useState(false);
+
+  const toggleStatus = () => setStatus(!status);
 
   const onChange = ({ coords }: Position) => {
-    setPosition({ latitude: coords.latitude, longitude: coords.longitude });
+    cb(coords);
+    toggleStatus();
   };
+
   const onError = (error: PositionError) => {
     setError(error.message);
   };
@@ -22,5 +26,6 @@ export const usePosition = (status: boolean) => {
     const watcher = geo.watchPosition(onChange, onError);
     return () => geo.clearWatch(watcher);
   }, [status]);
-  return { position, error };
+
+  return [toggleStatus, status, error];
 };

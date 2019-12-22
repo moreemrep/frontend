@@ -1,23 +1,19 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import React, { useState, useEffect } from 'react';
-import { Tipo, RepublicaPayload } from 'src/generated/graphql';
+import { Tipo } from 'src/generated/graphql';
 import './form.css';
-import Map from 'pigeon-maps';
-import { useDimensions } from 'src/hooks/useDimensions';
-import { useBreakpoints } from 'src/hooks/useBreakpoints';
 import { useRepublicaActions } from 'src/actions/useRepublicaActions';
 import { useRepublicaStore } from 'src/store/reducers/republicas-reducer';
 import Marker from 'pigeon-marker';
 import { ModalRepublica } from '../Pages/LandingPage/Modal';
+import { Mapa } from './Mapa';
 
 export function FomIput() {
   const [universidade, setUniversidade] = useState('asdd');
   const [tipo, setTipo] = useState(Tipo.Mista);
-  const { width } = useDimensions();
-  const { small } = useBreakpoints();
   const { fetchRepublicas } = useRepublicaActions();
   const [{ centro, republicas }, error, loading] = useRepublicaStore();
-  const [republicaSelecionada, setRepublica] = useState<RepublicaPayload | null>();
+  const [republicaSelecionada, setRepublica] = useState();
 
   useEffect(() => {
     fetchRepublicas({
@@ -57,19 +53,19 @@ export function FomIput() {
         <Button tipow={Tipo.Mista}>mista</Button>
       </div>
       {universidade && tipo && centro && (
-        <Map center={[centro[1], centro[0]]} zoom={14} width={small ? width : 500} height={400}>
-          <Marker anchor={[centro[1], centro[0]]} />
+        <Mapa center={[centro.latitude, centro.longitude]} zoom={14}>
+          <Marker anchor={[centro.latitude, centro.longitude]} />
           {republicas.map(
             republica =>
               republica.localizacao && (
                 <Marker
                   onClick={() => setRepublica(republica)}
                   key={republica.nome}
-                  anchor={[republica.localizacao[1], republica.localizacao[0]]}
+                  anchor={[republica.localizacao.latitude, republica.localizacao.longitude]}
                 />
               )
           )}
-        </Map>
+        </Mapa>
       )}
       {republicaSelecionada && <ModalRepublica onHide={() => setRepublica(null)} republica={republicaSelecionada} />}
     </div>

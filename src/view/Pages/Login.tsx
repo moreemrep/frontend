@@ -4,10 +4,11 @@ import { useAuthStore } from 'src/store/reducers/auth-reducer';
 import { Form, Button, InputGroup, Row } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import { useHistory } from 'react-router';
-import { object, string } from 'yup';
+import { object } from 'yup';
 import { StyleSheet, css } from 'aphrodite';
 import { useDimensions } from 'src/hooks/useDimensions';
 import { useBreakpoints } from 'src/hooks/useBreakpoints';
+import { useValidation } from 'src/validations/useValidation';
 
 const styles = StyleSheet.create({
   input: {
@@ -28,6 +29,7 @@ const Login: React.FC = () => {
   const history = useHistory();
   const { height, width } = useDimensions();
   const { medium, large } = useBreakpoints();
+  const validation = useValidation();
 
   // pequeno por padrão
   const responsive = {
@@ -66,12 +68,8 @@ const Login: React.FC = () => {
       senha: ''
     },
     validationSchema: object().shape({
-      email: string()
-        .required('Email inválido')
-        .email('Email inválido'),
-      senha: string()
-        .required('Senha obrigatória')
-        .min(6, 'minimo 6 caracteres')
+      email: validation.email,
+      senha: validation.senha
     }),
     onSubmit: async (values, helpers) => {
       if (await login(values)) {
@@ -110,7 +108,7 @@ const Login: React.FC = () => {
 
   return (
     <Form className={css(responsiveStyles.container)}>
-      <Form.Group as={Row} md="6" controlId="validationFormikEmail">
+      <Form.Group as={Row}>
         <InputGroup className={css(responsiveStyles.inputContainer)}>
           <Form.Control
             type="text"
@@ -119,14 +117,13 @@ const Login: React.FC = () => {
             onChange={handleChange}
             onBlur={handleBlur}
             placeholder="Email"
-            aria-describedby="inputGroupPrepend"
             isInvalid={errorEmail()}
           />
           <Form.Control.Feedback type="invalid">{errors.email}</Form.Control.Feedback>
         </InputGroup>
       </Form.Group>
 
-      <Form.Group as={Row} controlId="validationFormikSenha">
+      <Form.Group as={Row}>
         <InputGroup className={css(responsiveStyles.inputContainer)}>
           <Form.Control
             type="password"
@@ -135,7 +132,6 @@ const Login: React.FC = () => {
             onChange={handleChange}
             onBlur={handleBlur}
             placeholder="Senha"
-            aria-describedby="inputGroupPrepend"
             isInvalid={errorSenha()}
           />
           <Form.Control.Feedback type="invalid">{errors.senha}</Form.Control.Feedback>
