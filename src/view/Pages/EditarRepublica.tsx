@@ -1,17 +1,16 @@
 import React from 'react';
 import { Button, Card } from 'react-bootstrap';
+import { useAuthStore } from 'src/store/reducers/auth-reducer';
+import { CadastrarRepublicaForm } from './CadastrarRepublica/Formulario';
 
 const EditarRepublica: React.FC = () => {
+  const [user] = useAuthStore();
+  console.log({ user });
+  if (!user || !user.republica) return <div></div>;
+
   return (
     <div>
-      <Card>
-        <Card.Header>Nome República</Card.Header>
-        <Card.Body>
-          <Card.Title>Special title treatment</Card.Title>
-          <Card.Text>With supporting text below as a natural lead-in to additional content.</Card.Text>
-          <Button variant="primary">Go somewhere</Button>
-        </Card.Body>
-      </Card>
+      <CadastrarRepublicaForm republica={user.republica} />
     </div>
   );
 };
