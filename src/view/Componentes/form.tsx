@@ -88,7 +88,7 @@ export function FomIput() {
         <Button tipow={Tipo.Masculina}>masculina</Button>
         <Button tipow={Tipo.Mista}>mista</Button>
       </div>
-      {universidade && tipo && centro && (
+      {universidadeSelecionada && tipo && centro && (
         <Mapa center={[centro.latitude, centro.longitude]} zoom={14}>
           <Marker anchor={[centro.latitude, centro.longitude]} />
           {republicas.map(
