@@ -2,28 +2,30 @@ import React, { useState, useEffect } from 'react';
 import { useRepublicaStore } from 'src/store/reducers/republicas-reducer';
 import { useRepublicaActions } from 'src/actions/useRepublicaActions';
 import { Tipo } from 'src/generated/graphql';
-import { Accordion, useAccordionToggle, Card, Toast } from 'react-bootstrap';
+import { Accordion, useAccordionToggle, Card, Button, InputGroup, FormControl } from 'react-bootstrap';
+import ToastRep from './ToastRep';
 
 export function ListaReps() {
   return (
     <div>
-      <Accordion defaultActiveKey="0">
+      <Accordion>
         <Card>
-          <Accordion.Toggle as={Card.Header} eventKey="0" style={{ backgroundColor: 'green' }}>
-            Carregar Lista de Reps
-          </Accordion.Toggle>
+          <Card.Header>
+            <InputGroup className="mb-3">
+              <FormControl placeholder="Digite o raio de busca" aria-describedby="basic-addon2" />
+              <InputGroup.Append>
+                <Accordion.Toggle as={Button} variant="outline-primary" eventKey="0">
+                  Buscar
+                </Accordion.Toggle>
+              </InputGroup.Append>
+            </InputGroup>
+            <Accordion.Toggle as={Button} variant="outline-dark" eventKey="1">
+              Sair Lista
+            </Accordion.Toggle>
+          </Card.Header>
           <Accordion.Collapse eventKey="0">
             <Card.Body>
-              {
-                <Toast>
-                  <Toast.Header>
-                    <img src="" className="rounded mr-2" alt="" />
-                    <strong className="mr-auto">Nome Rep</strong>
-                    <small>Distância da facul</small>
-                  </Toast.Header>
-                  <Toast.Body style={{ backgroundColor: 'grey' }}>Descrição</Toast.Body>
-                </Toast>
-              }
+              <ToastRep></ToastRep>
             </Card.Body>
           </Accordion.Collapse>
         </Card>

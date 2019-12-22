@@ -5,6 +5,7 @@ import { useRepublicaStore } from 'src/store/reducers/republicas-reducer';
 import { useRepublicaActions } from 'src/actions/useRepublicaActions';
 import { Tipo } from 'src/generated/graphql';
 import { ListaReps } from '../Componentes/ListaReps';
+import '../style.css';
 
 const styles = StyleSheet.create({
   form: {
@@ -20,7 +21,7 @@ const LandingPage: React.FC = () => {
       <div className={css(styles.form)}>
         <FomIput></FomIput>
       </div>
-      <div className="ajeitaLista">
+      <div className="listcss">
         <ListaReps></ListaReps>
       </div>
     </div>
