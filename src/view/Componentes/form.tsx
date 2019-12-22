@@ -1,30 +1,56 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import React, { useState, useEffect } from 'react';
-import { Tipo } from 'src/generated/graphql';
+import { Tipo, Universidade } from 'src/generated/graphql';
 import './form.css';
 import { useRepublicaActions } from 'src/actions/useRepublicaActions';
 import { useRepublicaStore } from 'src/store/reducers/republicas-reducer';
 import Marker from 'pigeon-marker';
 import { ModalRepublica } from '../Pages/LandingPage/Modal';
 import { Mapa } from './Mapa';
+import { useUniversidadeActions } from 'src/actions/useUniversidadeActions';
+import { useUniversidadeStore } from 'src/store/reducers/universidades-reducer';
+import useDebounce from 'src/hooks/useDebounce';
+import { Universidades } from './Universidade';
 
 export function FomIput() {
-  const [universidade, setUniversidade] = useState('asdd');
-  const [tipo, setTipo] = useState(Tipo.Mista);
+  const [universidade, setUniversidade] = useState('');
+  const [tipo, setTipo] = useState();
   const { fetchRepublicas } = useRepublicaActions();
   const [{ centro, republicas }, error, loading] = useRepublicaStore();
   const [republicaSelecionada, setRepublica] = useState();
+  const [universidadeSelecionada, setUniversidadeSelecionada] = useState<Universidade>();
+  const { fetchUniversidades } = useUniversidadeActions();
+  const [universidades, errorUni, loadingUni] = useUniversidadeStore();
+  const [isSiglaSearch, setSiglaSearch] = useState(true);
+  const [showUniversidades, setShowUniversidade] = useState(false);
+
+  const universidadeDebounced = useDebounce(universidade, 500);
 
   useEffect(() => {
+    if (universidadeDebounced == '') return;
+    fetchUniversidades(
+      isSiglaSearch
+        ? {
+            sigla: universidadeDebounced
+          }
+        : {
+            nome: universidadeDebounced
+          }
+    );
+    setShowUniversidade(true);
+  }, [universidadeDebounced]);
+
+  useEffect(() => {
+    if (!tipo || !universidadeSelecionada) return;
     fetchRepublicas({
       distancia: 2000,
       tipo,
-      universidade: '5df5848110318d066da24ee6'
+      universidade: universidadeSelecionada.id
     });
-  }, [tipo]);
+  }, [tipo, universidadeSelecionada]);
 
   function handleTipoClick(tipo: Tipo) {
-    if (universidade) setTipo(tipo);
+    if (universidadeSelecionada) setTipo(tipo);
   }
 
   function Button({ tipow, children }: any) {
@@ -35,19 +61,29 @@ export function FomIput() {
     );
   }
 
+  function handleClickUniversidade(uni: Universidade) {
+    setUniversidadeSelecionada(uni);
+    setShowUniversidade(false);
+  }
+
   return (
     <div>
+      <input type="hidden" value="something" />
       <div id="namer">
         <div id="namer-input">
           <input
             type="text"
+            autoComplete="off"
             name="universidade"
+            onFocus={() => setShowUniversidade(true)}
             placeholder="Universidade"
             onChange={t => setUniversidade(t.target.value)}
           />
+          {showUniversidades && <Universidades universidades={universidades} onClick={handleClickUniversidade} />}
         </div>
       </div>
-      <div className={`namer-controls ${universidade && 'active'}`}>
+      {universidadeSelecionada && universidadeSelecionada.nome}
+      <div className={`namer-controls ${universidadeSelecionada && 'active'}`}>
         <Button tipow={Tipo.Feminina}>feminina</Button>
         <Button tipow={Tipo.Masculina}>masculina</Button>
         <Button tipow={Tipo.Mista}>mista</Button>
