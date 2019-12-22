@@ -29,6 +29,7 @@
     "react-runtime": "^1.1.0",
     "react-scripts": "3.3.0",
     "relay-hooks": "^2.0.0",
+    "rollbar": "^2.14.4",
     "typescript": "~3.7.2",
     "yup": "^0.27.0"
   },
