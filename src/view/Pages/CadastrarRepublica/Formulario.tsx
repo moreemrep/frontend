@@ -67,25 +67,25 @@ export const CadastrarRepublicaForm: React.FC<RepublicaFormProps> = ({ republica
       width: width * 0.9 // 90% do tamanho da tela
     },
     input: {
-      fontSize: 25,
+      fontSize: 20,
       paddingTop: 0,
       paddingBottom: 0
     },
     areaInput: {
       padding: 10,
-      fontSize: 25,
-      height: 300
+      fontSize: 20,
+      height: 200
     }
   };
 
   if (medium) {
     // se tela media
     responsive.inputContainer.width = width * 0.7;
-    responsive.input.fontSize = 25;
+    responsive.input.fontSize = 15;
   } else if (large) {
     // se tela grande
     responsive.inputContainer.width = width * 0.6;
-    responsive.input.fontSize = 30;
+    responsive.input.fontSize = 20;
   }
 
   const responsiveStyles = StyleSheet.create({
@@ -231,15 +231,13 @@ export const CadastrarRepublicaForm: React.FC<RepublicaFormProps> = ({ republica
           </InputGroup>
         </Form.Group>
       </Form.Group>
-      <Form.Group as={Row}>
+      <Form.Group as={Row} className={css(responsiveStyles.inputContainer)}>
         <Form.Group as={Col}>
           <Form.Label>Descrição</Form.Label>
-          <InputGroup className={css(responsiveStyles.inputContainer)}>
+          <InputGroup>
             <Form.Control
               as="textarea"
               rows="2"
-              maxLength="500"
-              minLength="10"
               name="descricao"
               onChange={handleChange}
               onBlur={handleBlur}
@@ -264,18 +262,19 @@ export const CadastrarRepublicaForm: React.FC<RepublicaFormProps> = ({ republica
           />
         </Form.Group>
       </Form.Group>
-
+            
+        <div className={css(responsiveStyles.inputContainer)}>
       <Form.Group as={Row}>
         <Form.Group as={Col}>
           <Form.Label>
             Endereço{loadingGeo && '(carregando)'} (utilizado apenas para pegar as coordenadas da república)
           </Form.Label>
-          <InputGroup className={css(responsiveStyles.inputContainer)}>
+          <InputGroup>
             <Form.Control
               className={css(styles.input, responsiveStyles.input)}
               name="endereco"
               onChange={handleChange}
-              placeholder="Rua:..., nº"
+              placeholder="Rua:..., nº, Cidade"
             />
             <Button size="sm" variant="outline-secondary" onClick={toggleGps}>
               {gpsStatus ? 'desligar' : 'Pegar do GPS'}
@@ -294,6 +293,7 @@ export const CadastrarRepublicaForm: React.FC<RepublicaFormProps> = ({ republica
           <Form.Control.Feedback type="invalid">{errors.mostrarNoMapa}</Form.Control.Feedback>
         </Form.Group>
       </Form.Group>
+      </div>
 
       {!EDIT_PAGE && (
         <Form.Group as={Row}>
