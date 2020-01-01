@@ -52,7 +52,7 @@ interface RepublicaFormProps {
 export const CadastrarRepublicaForm: React.FC<RepublicaFormProps> = ({ republica }) => {
   const EDIT_PAGE = !!republica;
   const { register, edit } = useAuthActions();
-  const [, error, loading] = useAuthStore();
+  const [, error, loading] = useAuthStore(); //todo: tratar erros
   const { push } = useHistory();
 
   // largura da tela
@@ -147,7 +147,8 @@ export const CadastrarRepublicaForm: React.FC<RepublicaFormProps> = ({ republica
             longitude: values.longitude
           },
           nome: values.nome,
-          tipo: values.tipo
+          tipo: values.tipo,
+          mostrarNoMapa: values.mostrarNoMapa
         });
       } else if (
         await register(
@@ -270,37 +271,37 @@ export const CadastrarRepublicaForm: React.FC<RepublicaFormProps> = ({ republica
           />
         </Form.Group>
       </Form.Group>
-            
-        <div className={css(responsiveStyles.inputContainer)}>
-      <Form.Group as={Row}>
-        <Form.Group as={Col}>
-          <Form.Label>
-            Endereço{loadingGeo && '(carregando)'} (utilizado apenas para pegar as coordenadas da república)
-          </Form.Label>
-          <InputGroup>
-            <Form.Control
-              className={css(styles.input, responsiveStyles.input)}
-              name="endereco"
-              onChange={handleChange}
-              placeholder="Rua:..., nº, Cidade"
-            />
-            <Button size="sm" variant="outline-secondary" onClick={toggleGps}>
-              {gpsStatus ? 'desligar' : 'Pegar do GPS'}
-            </Button>
-            <Mapa onClick={onMapClick} center={[values.latitude, values.longitude]} zoom={15}>
-              <Marker anchor={[values.latitude, values.longitude]} />
-            </Mapa>
-            <Form.Check
-              type="checkbox"
-              label="Aparecer no Mapa(se desativado, mostraremos apenas a distância da república até a universidade)"
-              name="mostrarNoMapa"
-              onChange={() => setFieldValue('mostrarNoMapa', !values.mostrarNoMapa)}
-              checked={values.mostrarNoMapa}
-            />
-          </InputGroup>
-          <Form.Control.Feedback type="invalid">{errors.mostrarNoMapa}</Form.Control.Feedback>
+
+      <div className={css(responsiveStyles.inputContainer)}>
+        <Form.Group as={Row}>
+          <Form.Group as={Col}>
+            <Form.Label>
+              Endereço{loadingGeo && '(carregando)'} (utilizado apenas para pegar as coordenadas da república)
+            </Form.Label>
+            <InputGroup>
+              <Form.Control
+                className={css(styles.input, responsiveStyles.input)}
+                name="endereco"
+                onChange={handleChange}
+                placeholder="Rua:..., nº, Cidade"
+              />
+              <Button size="sm" variant="outline-secondary" onClick={toggleGps}>
+                {gpsStatus ? 'desligar' : 'Pegar do GPS'}
+              </Button>
+              <Mapa onClick={onMapClick} center={[values.latitude, values.longitude]} zoom={15}>
+                <Marker anchor={[values.latitude, values.longitude]} />
+              </Mapa>
+              <Form.Check
+                type="checkbox"
+                label="Aparecer no Mapa(se desativado, mostraremos apenas a distância da república até a universidade)"
+                name="mostrarNoMapa"
+                onChange={() => setFieldValue('mostrarNoMapa', !values.mostrarNoMapa)}
+                checked={values.mostrarNoMapa}
+              />
+            </InputGroup>
+            <Form.Control.Feedback type="invalid">{errors.mostrarNoMapa}</Form.Control.Feedback>
+          </Form.Group>
         </Form.Group>
-      </Form.Group>
       </div>
 
       {!EDIT_PAGE && (
@@ -343,7 +344,7 @@ export const CadastrarRepublicaForm: React.FC<RepublicaFormProps> = ({ republica
         </Form.Group>
       )}
 
-      {EDIT_PAGE ? ( //todo: edit action
+      {EDIT_PAGE ? (
         <Button disabled={loading.EDIT} variant="primary" onClick={() => handleSubmit()}>
           {loading.EDIT ? 'carregando' : 'Salvar alterações'}
         </Button>

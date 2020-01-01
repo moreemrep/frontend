@@ -98,6 +98,7 @@ input EditarRepublicaInput {
     tipo: Tipo
     descricao: String
     disponivel: Boolean
+    mostrarNoMapa: Boolean
 }
 input ProcurarRepublicaInput { 
     universidade: ID!

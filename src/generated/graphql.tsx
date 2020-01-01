@@ -52,6 +52,7 @@ export type EditarRepublicaInput = {
   tipo?: Maybe<Tipo>,
   descricao?: Maybe<Scalars['String']>,
   disponivel?: Maybe<Scalars['Boolean']>,
+  mostrarNoMapa?: Maybe<Scalars['Boolean']>,
 };
 
 export type LoginPayload = {
