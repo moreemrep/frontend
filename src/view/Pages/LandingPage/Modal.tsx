@@ -19,14 +19,21 @@ export function ModalRepublica({ republica, onHide }: ModalRepublicaProps) {
 
   return (
     <Modal show={!!republica} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
-      <Modal.Header closeButton>
+      <Modal.Header>
         <Modal.Title className={css(styles.text)} id="contained-modal-title-vcenter">
           {nome}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body className={css(styles.text)}>
-        <h4>{Math.trunc(distancia)} km</h4>
-        <p>{descricao}</p>
+        <h4>{distancia.toFixed(2)} km</h4>
+        <p>
+          {descricao.split('\n').map((item, idx) => (
+            <span key={idx}>
+              {item}
+              <br />
+            </span>
+          ))}
+        </p>
       </Modal.Body>
       <Modal.Footer className={css(styles.text)}>
         <Button onClick={onHide}>Close</Button>
