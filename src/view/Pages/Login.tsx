@@ -38,17 +38,17 @@ const Login: React.FC = () => {
     },
     input: {
       fontSize: 25,
-      paddingTop: 40,
-      paddingBottom: 40
+      paddingTop: 30,
+      paddingBottom: 30
     }
   };
 
   if (medium) {
     responsive.inputContainer.width = width * 0.7;
-    responsive.input.fontSize = 25;
+    responsive.input.fontSize = 15;
   } else if (large) {
     responsive.inputContainer.width = width * 0.6;
-    responsive.input.fontSize = 30;
+    responsive.input.fontSize = 20;
   }
 
   const responsiveStyles = StyleSheet.create({
