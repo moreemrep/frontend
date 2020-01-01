@@ -1,7 +1,13 @@
 import { graphql } from 'babel-plugin-relay/macro';
 import { useMutation } from 'relay-hooks';
 import { useAuthDispatch } from 'src/store/reducers/auth-reducer';
-import { CriarRepublicaInput, CriarRepublicaPayload, LoginPayload } from 'src/generated/graphql';
+import {
+  CriarRepublicaInput,
+  CriarRepublicaPayload,
+  LoginPayload,
+  EditarRepublicaInput,
+  ResponsePayload
+} from 'src/generated/graphql';
 import { Payload } from 'src/types/types';
 import { useFirebase } from 'src/services/useFirebase';
 
@@ -21,6 +27,15 @@ const MUTATION_REGISTER = graphql`
         mostrarNoMapa
         tipo
       }
+    }
+  }
+`;
+
+const MUTATION_EDIT = graphql`
+  mutation useAuthActionsEditarMutation($input: EditarRepublicaInput!) {
+    payload: editarRepublica(input: $input) {
+      success
+      error
     }
   }
 `;
@@ -52,9 +67,10 @@ interface RegistrarInput {
 }
 
 export function useAuthActions() {
-  const { login, register, forgotPassword, logout } = useAuthDispatch();
+  const { login, register, edit, forgotPassword, logout } = useAuthDispatch();
   const [registerMutation] = useMutation(MUTATION_REGISTER);
   const [loginMutation] = useMutation(MUTATION_LOGIN);
+  const [editMutation] = useMutation(MUTATION_EDIT);
   const { auth } = useFirebase();
 
   return {
@@ -104,6 +120,18 @@ export function useAuthActions() {
           email: crendenciais.email,
           republica: payload.republica
         };
+      }),
+
+    edit: (input: EditarRepublicaInput) =>
+      edit(async () => {
+        const { payload }: Payload<ResponsePayload> = await editMutation({
+          variables: { input }
+        });
+
+        if (payload.error) {
+          throw Error(payload.error);
+        }
+        return input;
       }),
 
     forgotPassword: async (email: string) =>

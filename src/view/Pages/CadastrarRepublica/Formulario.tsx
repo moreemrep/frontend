@@ -51,7 +51,7 @@ interface RepublicaFormProps {
 
 export const CadastrarRepublicaForm: React.FC<RepublicaFormProps> = ({ republica }) => {
   const EDIT_PAGE = !!republica;
-  const { register } = useAuthActions();
+  const { register, edit } = useAuthActions();
   const [, error, loading] = useAuthStore();
   const { push } = useHistory();
 
@@ -138,10 +138,18 @@ export const CadastrarRepublicaForm: React.FC<RepublicaFormProps> = ({ republica
         }),
     onSubmit: async (values, helpers) => {
       if (EDIT_PAGE) {
-        console.log('chamar action editar');
-        return;
-      }
-      if (
+        await edit({
+          descricao: values.descricao,
+          disponivel: values.disponivel,
+          endereco: '',
+          localizacao: {
+            latitude: values.latitude,
+            longitude: values.longitude
+          },
+          nome: values.nome,
+          tipo: values.tipo
+        });
+      } else if (
         await register(
           {
             disponivel: values.disponivel,
@@ -336,8 +344,8 @@ export const CadastrarRepublicaForm: React.FC<RepublicaFormProps> = ({ republica
       )}
 
       {EDIT_PAGE ? ( //todo: edit action
-        <Button disabled={loading.REGISTER} variant="primary" onClick={() => handleSubmit()}>
-          {loading.REGISTER ? 'carregando' : 'Salvar alterações'}
+        <Button disabled={loading.EDIT} variant="primary" onClick={() => handleSubmit()}>
+          {loading.EDIT ? 'carregando' : 'Salvar alterações'}
         </Button>
       ) : (
         <Button disabled={loading.REGISTER} variant="primary" onClick={() => handleSubmit()}>

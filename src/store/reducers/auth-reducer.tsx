@@ -1,7 +1,7 @@
 import { useDispatch } from '../hooks/useDispatch';
 import { Action } from '../StoreProvider';
 import { useStore, useStatus } from '../hooks/useStore';
-import { RepublicaUser } from 'src/generated/graphql';
+import { RepublicaUser, EditarRepublicaInput } from 'src/generated/graphql';
 
 export interface AuthState {
   email: string;
@@ -13,6 +13,7 @@ export const initialState: AuthState | null = null;
 const types = {
   LOGIN: 'LOGIN',
   REGISTER: 'REGISTER',
+  EDIT: 'EDIT',
   FORGOT_PASSWORD: 'FORGOT_PASSWORD',
   LOGOUT: 'LOGOUT'
 };
@@ -20,6 +21,7 @@ const types = {
 interface LoadingStatus {
   LOGIN: boolean;
   REGISTER: boolean;
+  EDIT: boolean;
   FORGOT_PASSWORD: boolean;
   LOGOUT: boolean;
 }
@@ -27,6 +29,7 @@ interface LoadingStatus {
 interface ErrorStatus {
   LOGIN: string;
   REGISTER: string;
+  EDIT: string;
   FORGOT_PASSWORD: string;
   LOGOUT: string;
 }
@@ -36,6 +39,16 @@ export function authReducer(state: AuthState | null, action: Action) {
     case 'LOGIN_SUCCESS':
     case 'REGISTER_SUCCESS':
       return action.payload;
+
+    case 'EDIT_SUCCESS':
+      return {
+        ...state,
+        republica: {
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          ...state!.republica,
+          ...action.payload
+        }
+      };
 
     case 'LOGOUT_SUCCESS':
       return initialState;
@@ -48,12 +61,14 @@ export function authReducer(state: AuthState | null, action: Action) {
 export function useAuthDispatch() {
   const login = useDispatch<AuthState>(types.LOGIN);
   const register = useDispatch<AuthState>(types.REGISTER);
+  const edit = useDispatch<EditarRepublicaInput>(types.EDIT);
   const forgotPassword = useDispatch(types.FORGOT_PASSWORD);
   const logout = useDispatch(types.LOGOUT);
 
   return {
     login,
     register,
+    edit,
     forgotPassword,
     logout
   };
