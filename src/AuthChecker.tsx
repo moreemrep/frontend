@@ -3,11 +3,7 @@ import { useFirebase } from './services/useFirebase';
 import { useAuthActions } from './actions/useAuthActions';
 import { useAuthStore } from './store/reducers/auth-reducer';
 
-interface AuthCheckerProps {
-  children: React.ReactNode;
-}
-
-export const AuthChecker: React.FC<AuthCheckerProps> = props => {
+export const AuthChecker: React.FC = props => {
   const { auth } = useFirebase();
   const { loginFirebase } = useAuthActions();
   const [user] = useAuthStore();

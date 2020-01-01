@@ -18,7 +18,7 @@ export function FomIput() {
   const { fetchRepublicas } = useRepublicaActions();
   const [{ centro, republicas }, error, loading] = useRepublicaStore();
   const [republicaSelecionada, setRepublica] = useState();
-  const [universidadeSelecionada, setUniversidadeSelecionada] = useState<Universidade>();
+  const [universidadeSelecionada, setUniversidadeSelecionada] = useState();
   const { fetchUniversidades } = useUniversidadeActions();
   const [universidades, errorUni, loadingUni] = useUniversidadeStore();
   const [isSiglaSearch, setSiglaSearch] = useState(true);
