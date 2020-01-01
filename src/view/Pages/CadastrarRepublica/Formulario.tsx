@@ -242,7 +242,7 @@ export const CadastrarRepublicaForm: React.FC<RepublicaFormProps> = ({ republica
       </Form.Group>
       <Form.Group as={Row} className={css(responsiveStyles.inputContainer)}>
         <Form.Group as={Col}>
-          <Form.Label>Descrição</Form.Label>
+          <Form.Label>Descrição ({values.descricao.length}/500)</Form.Label>
           <InputGroup>
             <Form.Control
               as="textarea"
