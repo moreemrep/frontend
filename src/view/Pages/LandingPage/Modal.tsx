@@ -18,8 +18,8 @@ export function ModalRepublica({ republica, onHide }: ModalRepublicaProps) {
   const { nome, distancia, descricao } = republica;
 
   return (
-    <Modal show={!!republica} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
-      <Modal.Header>
+    <Modal onHide={onHide} show={!!republica} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
+      <Modal.Header closeButton>
         <Modal.Title className={css(styles.text)} id="contained-modal-title-vcenter">
           {nome}
         </Modal.Title>
