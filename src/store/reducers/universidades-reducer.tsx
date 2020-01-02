@@ -1,6 +1,5 @@
 import { useDispatch } from '../hooks/useDispatch';
 import { Action } from '../StoreProvider';
-import { useStore, useStatus } from '../hooks/useStore';
 import { Universidade } from '../../generated/graphql';
 
 export const initialState: Universidade[] = [];
@@ -9,12 +8,12 @@ const types = {
   FETCH_UNIVERSIDADE: 'FETCH_UNIVERSIDADE'
 };
 
-interface LoadingStatus {
-  FETCH_UNIVERSIDADE: boolean;
+export interface LoadingStatusUniversidade {
+  FETCH_UNIVERSIDADE?: boolean;
 }
 
-interface ErrorStatus {
-  FETCH_UNIVERSIDADE: string;
+export interface ErrorStatusUniversidade {
+  FETCH_UNIVERSIDADE?: string;
 }
 
 export function universidadeReducer(state: Universidade[], action: Action): Universidade[] {
@@ -33,11 +32,4 @@ export function useUniversidadeDispatch() {
   return {
     fetch
   };
-}
-
-export function useUniversidadeStore(): [Universidade[], ErrorStatus, LoadingStatus] {
-  const universidades = useStore('universidades');
-  const [error, loading] = useStatus(types);
-
-  return [universidades, error, loading];
 }

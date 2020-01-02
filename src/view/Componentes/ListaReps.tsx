@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { useRepublicaStore } from 'src/store/reducers/republicas-reducer';
-import { useRepublicaActions } from 'src/actions/useRepublicaActions';
-import { Tipo } from 'src/generated/graphql';
-import { Accordion, useAccordionToggle, Card, Button, InputGroup, FormControl } from 'react-bootstrap';
+import React from 'react';
+import { Accordion, Card, Button, InputGroup, FormControl } from 'react-bootstrap';
 import ToastRep from './ToastRep';
+import { useSelector } from 'src/store/hooks/useSelector';
 
 export function ListaReps() {
+  const republicas = useSelector(state => state.republicas.republicas);
+
   return (
     <div>
       <Accordion>

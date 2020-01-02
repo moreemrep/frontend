@@ -1,12 +1,11 @@
 import React from 'react';
-import { Button, Card } from 'react-bootstrap';
-import { useAuthStore } from 'src/store/reducers/auth-reducer';
 import { CadastrarRepublicaForm } from './CadastrarRepublica/Formulario';
+import { useSelector } from 'src/store/hooks/useSelector';
 
 const EditarRepublica: React.FC = () => {
-  const [user] = useAuthStore();
-  console.log({ user });
-  if (!user || !user.republica) return <div></div>;
+  const user = useSelector(state => state.auth);
+
+  if (!user) return <div></div>;
 
   return (
     <div>

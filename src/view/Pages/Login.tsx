@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useAuthActions } from 'src/actions/useAuthActions';
-import { useAuthStore } from 'src/store/reducers/auth-reducer';
 import { Form, Button, InputGroup, Row } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import { useHistory } from 'react-router';
@@ -9,6 +8,7 @@ import { StyleSheet, css } from 'aphrodite';
 import { useDimensions } from 'src/hooks/useDimensions';
 import { useBreakpoints } from 'src/hooks/useBreakpoints';
 import { useValidation } from 'src/validations/useValidation';
+import { useSelector } from 'src/store/hooks/useSelector';
 
 const styles = StyleSheet.create({
   input: {
@@ -25,7 +25,16 @@ const styles = StyleSheet.create({
 
 const Login: React.FC = () => {
   const { login, forgotPassword } = useAuthActions();
-  const [, error, loading] = useAuthStore();
+  const [error, loading] = useSelector(state => [
+    {
+      FORGOT_PASSWORD: state.error.FORGOT_PASSWORD,
+      LOGIN: state.error.LOGIN
+    },
+    {
+      FORGOT_PASSWORD: state.loading.FORGOT_PASSWORD,
+      LOGIN: state.loading.LOGIN
+    }
+  ]);
   const history = useHistory();
   const { height, width } = useDimensions();
   const { medium, large } = useBreakpoints();

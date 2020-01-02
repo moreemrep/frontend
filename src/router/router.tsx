@@ -1,7 +1,7 @@
 import React, { lazy, Suspense } from 'react';
 import { Route, Redirect, Switch, HashRouter } from 'react-router-dom';
 import { GAListener } from './gaListener';
-import { useAuthStore } from 'src/store/reducers/auth-reducer';
+import { useSelector } from 'src/store/hooks/useSelector';
 
 const LoadingMessage = () => <div>loading...</div>;
 
@@ -12,8 +12,7 @@ const Info = lazy(() => import('../view/Pages/info'));
 const LandingPage = lazy(() => import('../view/Pages/LandingPage'));
 
 export function Router() {
-  const [user] = useAuthStore();
-  const logado = !!user;
+  const logado = useSelector(state => !!state.auth);
 
   return (
     <HashRouter>

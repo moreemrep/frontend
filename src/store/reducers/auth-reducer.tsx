@@ -1,6 +1,5 @@
 import { useDispatch } from '../hooks/useDispatch';
 import { Action } from '../StoreProvider';
-import { useStore, useStatus } from '../hooks/useStore';
 import { RepublicaUser, EditarRepublicaInput } from 'src/generated/graphql';
 
 export interface AuthState {
@@ -18,20 +17,20 @@ const types = {
   LOGOUT: 'LOGOUT'
 };
 
-interface LoadingStatus {
-  LOGIN: boolean;
-  REGISTER: boolean;
-  EDIT: boolean;
-  FORGOT_PASSWORD: boolean;
-  LOGOUT: boolean;
+export interface LoadingStatusAuth {
+  LOGIN?: boolean;
+  REGISTER?: boolean;
+  EDIT?: boolean;
+  FORGOT_PASSWORD?: boolean;
+  LOGOUT?: boolean;
 }
 
-interface ErrorStatus {
-  LOGIN: string;
-  REGISTER: string;
-  EDIT: string;
-  FORGOT_PASSWORD: string;
-  LOGOUT: string;
+export interface ErrorStatusAuth {
+  LOGIN?: string;
+  REGISTER?: string;
+  EDIT?: string;
+  FORGOT_PASSWORD?: string;
+  LOGOUT?: string;
 }
 
 export function authReducer(state: AuthState | null, action: Action) {
@@ -72,11 +71,4 @@ export function useAuthDispatch() {
     forgotPassword,
     logout
   };
-}
-
-export function useAuthStore(): [AuthState | null, ErrorStatus, LoadingStatus] {
-  const user = useStore('auth');
-  const [error, loading] = useStatus(types);
-
-  return [user, error, loading];
 }

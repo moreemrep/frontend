@@ -1,7 +1,6 @@
 /* eslint-disable no-case-declarations */
 import { useDispatch } from '../hooks/useDispatch';
 import { Action } from '../StoreProvider';
-import { useStore, useStatus } from '../hooks/useStore';
 import { RepublicaPayload, Coordenadas } from '../../generated/graphql';
 
 export interface RepublicaState {
@@ -21,12 +20,12 @@ const types = {
   FETCH_REPUBLICAS: 'FETCH_REPUBLICAS'
 };
 
-interface LoadingStatus {
-  FETCH_REPUBLICAS: boolean;
+export interface LoadingStatusRepublica {
+  FETCH_REPUBLICAS?: boolean;
 }
 
-interface ErrorStatus {
-  FETCH_REPUBLICAS: string;
+export interface ErrorStatusRepublica {
+  FETCH_REPUBLICAS?: string;
 }
 
 export function republicaReducer(state: RepublicaState, action: Action): RepublicaState {
@@ -45,11 +44,4 @@ export function useRepublicaDispatch() {
   return {
     fetch
   };
-}
-
-export function useRepublicaStore(): [RepublicaState, ErrorStatus, LoadingStatus] {
-  const republicas = useStore('republicas');
-  const [error, loading] = useStatus(types);
-
-  return [republicas, error, loading];
 }

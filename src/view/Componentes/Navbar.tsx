@@ -1,11 +1,11 @@
 import React from 'react';
 import { Navbar, NavDropdown, Nav } from 'react-bootstrap';
 import '../style.css';
-import { useAuthStore } from 'src/store/reducers/auth-reducer';
 import { useAuthActions } from 'src/actions/useAuthActions';
+import { useSelector } from 'src/store/hooks/useSelector';
 
 export function Navb() {
-  const [user] = useAuthStore();
+  const user = useSelector(state => state.auth);
   const { logout } = useAuthActions();
 
   const logado = !!user;

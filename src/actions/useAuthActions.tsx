@@ -93,7 +93,7 @@ export function useAuthActions() {
     loginFirebase: (email: string) =>
       login(async () => {
         const { payload }: Payload<LoginPayload> = await loginMutation({ variables: {} });
-        console.log({ payload });
+
         if (payload.error) throw new Error(payload.error);
 
         return {

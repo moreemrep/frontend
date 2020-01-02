@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useAuthActions } from 'src/actions/useAuthActions';
-import { useAuthStore } from 'src/store/reducers/auth-reducer';
 import { Tipo, RepublicaUser } from 'src/generated/graphql';
 import { useFormik } from 'formik';
 import { object } from 'yup';
@@ -16,6 +15,7 @@ import { useValidation } from 'src/validations/useValidation';
 import { StyleSheet, css } from 'aphrodite';
 import { useDimensions } from 'src/hooks/useDimensions';
 import { useBreakpoints } from 'src/hooks/useBreakpoints';
+import { useSelector } from 'src/store/hooks/useSelector';
 
 // todo: refactor me
 const styles = StyleSheet.create({
@@ -52,7 +52,9 @@ interface RepublicaFormProps {
 export const CadastrarRepublicaForm: React.FC<RepublicaFormProps> = ({ republica }) => {
   const EDIT_PAGE = !!republica;
   const { register, edit } = useAuthActions();
-  const [, error, loading] = useAuthStore(); //todo: tratar erros
+  const [error, loading] = useSelector(state =>
+    republica ? [state.error.EDIT, state.loading.EDIT] : [state.error.REGISTER, state.loading.REGISTER]
+  );
   const { push } = useHistory();
 
   // largura da tela
@@ -344,15 +346,9 @@ export const CadastrarRepublicaForm: React.FC<RepublicaFormProps> = ({ republica
         </Form.Group>
       )}
 
-      {EDIT_PAGE ? (
-        <Button disabled={loading.EDIT} variant="primary" onClick={() => handleSubmit()}>
-          {loading.EDIT ? 'carregando' : 'Salvar alterações'}
-        </Button>
-      ) : (
-        <Button disabled={loading.REGISTER} variant="primary" onClick={() => handleSubmit()}>
-          {loading.REGISTER ? 'carregando' : 'Cadastrar república'}
-        </Button>
-      )}
+      <Button disabled={loading} variant="primary" onClick={() => handleSubmit()}>
+        {loading ? 'carregando' : EDIT_PAGE ? 'Salvar alterações' : 'Cadastrar república'}
+      </Button>
     </Form>
   );
 };
